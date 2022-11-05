@@ -1,0 +1,99 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/UI.gd" type="Script" id=1]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="LabelCurrentGraph" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -44.5
+margin_top = 7.0
+margin_right = 44.5
+margin_bottom = 21.0
+text = "Current Graph"
+align = 1
+valign = 1
+
+[node name="PanelInfo" type="Panel" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -168.0
+margin_top = -323.0
+margin_bottom = -39.0
+
+[node name="LabelNodeName" type="Label" parent="PanelInfo"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -38.0
+margin_top = 7.0
+margin_right = 38.0
+margin_bottom = 21.0
+text = "Node Name"
+align = 1
+valign = 1
+
+[node name="LabelNodeType" type="Label" parent="PanelInfo"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -38.0
+margin_top = 24.0
+margin_right = 38.0
+margin_bottom = 38.0
+text = "Node Name"
+align = 1
+valign = 1
+
+[node name="LabelToolInfo" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -103.0
+margin_top = 62.0
+margin_right = 103.0
+margin_bottom = 177.0
+text = "Tool Info"
+align = 1
+
+[node name="PanelToolbar" type="Panel" parent="."]
+anchor_top = 0.95
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="LabelToolbar" type="Label" parent="PanelToolbar"]
+anchor_right = 0.059
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_right = 10.0
+text = "Active Tool:"
+align = 1
+valign = 1
+
+[node name="OptionButtonTools" type="OptionButton" parent="PanelToolbar"]
+anchor_right = 0.1
+anchor_bottom = 1.0
+margin_left = 94.0
+margin_right = 94.0
+
+[node name="PanelRightClickMenu" type="Panel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -360.0
+margin_right = -556.0
+margin_bottom = -240.0
+
+[node name="ButtonAddNode" type="Button" parent="PanelRightClickMenu"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -37.5
+margin_top = 4.0
+margin_right = 37.5
+margin_bottom = 24.0
+text = "Add Node"
