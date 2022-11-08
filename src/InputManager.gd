@@ -5,6 +5,7 @@ onready var graph_utils = preload("res://src/graph_utils.gd").new()
 onready var world_node : Node2D
 onready var background_node : Area2D
 onready var UI_node : CanvasLayer
+onready var Tool_node : Node2D
 
 # variables
 var mouse_pressed = false
@@ -14,9 +15,13 @@ func _ready():
 	world_node = self.owner
 	background_node = world_node.get_node("Background")
 	UI_node = world_node.get_node("UI")
+	Tool_node = world_node.get_node("ToolDrawer")
 	
 	graph_utils.nodes_gdnode = world_node.get_node("GNodes")
 	graph_utils.edges_gdnode = world_node.get_node("GEdges")
+	
+	# send tools to UI
+	UI_node.initialize_tools(Tool_node.tools)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -24,32 +29,8 @@ func _process(delta):
 	update_tool()
 
 func _input(event):
-	# track mouse clicking
-	if event.is_action_pressed("left_click"):
-		mouse_pressed = true
-	elif event.is_action_released("left_click"):
-		mouse_pressed=false
-	
-	# handle right click menu
-	if event.is_action_pressed('right_click'):
-		UI_node.toggle_mouse_menu(event.position)
-	
-	# handle tools
-	
-	# select tool
-	if graph_utils.current_tool == 'select':
-		if event.is_action_pressed("left_click"):
-			graph_utils.selected_gnode = graph_utils.above_gnode
-	
-	# move tool
-	if graph_utils.current_tool == 'move':
-		# move node
-		if event.is_action_pressed("left_click"):
-			graph_utils.selected_gnode = graph_utils.above_gnode
-		if mouse_pressed:
-			if graph_utils.selected_gnode:
-				graph_utils.move_gnode(get_global_mouse_position())
-
+	# process tool
+	Tool_node.tools[UI_node.get_current_tool()].process_event(event, graph_utils, UI_node)
 
 func load_test_graph():
 	# make new graph

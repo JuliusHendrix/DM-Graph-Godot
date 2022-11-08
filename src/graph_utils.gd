@@ -13,9 +13,7 @@ var nodes_gdnode : Node
 var edges_gdnode : Node
 
 
-# CLASS DICTIONARIES
-
-
+# class dictionaries
 var node_type_dict = {
 	"GNode": gc.GNode,
 	"Place": gc.Place,
@@ -27,7 +25,8 @@ var edge_type_dict = {
 }
 
 
-# FUNCTIONS
+# functions
+
 # make new graph and select it
 func new_graph(graph_name : String):
 	graph = gc.Graph.new(graph_name)
@@ -44,6 +43,7 @@ func load_graph(name : String):
 			# TODO: remove current nodes + edges from godot nodes GNodes and GEdges
 			
 			# TODO: add loaded nodes + edges to godot nodes GNodes and GEdges
+			
 			return
 	
 	print('Graph ' + name + 'not found.')
@@ -105,6 +105,7 @@ func clear_selected_gnode():
 
 func move_gnode(pos : Vector2):
 	if selected_gnode:
+		print(pos)
 		selected_gnode.position = pos
 		for edge in selected_gnode.edges:
 			edge.update()

@@ -2,14 +2,8 @@ extends CanvasLayer
 
 # imports
 const gc = preload("res://src/graph_classes.gd")
-const tls = preload("res://src/tools.gd")
 
-var tools = {
-	'select': tls.SelectTool.new(),
-	'move': tls.MoveTool.new()
-}
-
-func _ready():
+func initialize_tools(tools):
 	# add tools
 	for i in range(tools.size()):
 		$PanelToolbar/OptionButtonTools.add_item(tools.keys()[i], i)

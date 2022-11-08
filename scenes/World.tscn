@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
+[ext_resource path="res://src/tools.gd" type="Script" id=2]
 [ext_resource path="res://scenes/Camera2D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/UI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/InputManager.gd" type="Script" id=5]
@@ -27,3 +28,6 @@ z_index = -1
 
 [node name="InputManager" type="Node2D" parent="."]
 script = ExtResource( 5 )
+
+[node name="ToolDrawer" type="Node2D" parent="."]
+script = ExtResource( 2 )
