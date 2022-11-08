@@ -2,8 +2,5 @@ extends Node2D
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$InputManager.load_test_graph()
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	$UI/InputManager.graph_manager = $GraphManager
+	$UI/InputManager.load_test_graph()

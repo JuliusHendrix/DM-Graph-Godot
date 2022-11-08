@@ -26,7 +26,6 @@ class GEdge:
 		self.receiver = receiver
 
 	func _draw():
-		print('draw edge!')
 		draw_line(sender.position, receiver.position, color, width)
 
 # node base class
