@@ -35,7 +35,8 @@ class GNode:
 	# utility parameters
 	var mouse_over_prev = false
 	var mouse_over = false
-	var graph_utils
+	var graph_manager
+	var child_node
 	
 	# node parameters
 	var type : Array = ["GNode"]
@@ -43,35 +44,33 @@ class GNode:
 	var edges : Array = []
 	
 	# draw parameters
-	var radius : float = 10.0
-	var color : Color = Color( 0.5, 1, 0.83, 1 )
+#	var radius : float = 10.0
+#	var color : Color = Color( 0.5, 1, 0.83, 1 )
 
-	func _init(graph_utils, name, neighbours, position):
-		self.graph_utils = graph_utils
+	func _init(graph_manager, name, neighbours, position):
+		self.graph_manager = graph_manager
 		
 		self.name = name
 		self.neighbours = neighbours
 		self.position = position
 		
-		# add collision shape
-		var coll = CollisionShape2D.new()
-		self.add_child(coll)
+		# instantiate template node
+		child_node = graph_manager.get_node("TemplateGraph").get_node("GraphNode").duplicate()
+		child_node.visible = true
+		child_node.get_node("LabelName").text = name
+		self.add_child(child_node)
 	
 	func _ready():
 		# set the collision shape
 		var shape = CircleShape2D.new()
-		shape.set_radius(radius)
-		self.get_child(0).shape = shape    # this may break if more children are added
+#		shape.set_radius(radius)
+#		self.get_child(0).shape = shape    # this may break if more children are added
 		
 		# setup mouse click detection
-		connect("mouse_entered", self, "_mouse_over", [true])
-		connect("mouse_exited", self, "_mouse_over", [false])
+		child_node.connect("mouse_entered", self, "_mouse_over", [true])
+		child_node.connect("mouse_exited", self, "_mouse_over", [false])
 
 		set_process_unhandled_input(true)
-
-	func _draw():
-		# draw the circle
-		draw_circle(Vector2(0,0), radius, color)
 
 	# track over which node we are hovering
 	func _mouse_over(value):
@@ -79,24 +78,23 @@ class GNode:
 		self.mouse_over = value
 		
 		if self.mouse_over_prev == false and self.mouse_over == true:
-			self.graph_utils.above_gnode = self
+			self.graph_manager.above_gnode = self
 		elif self.mouse_over_prev == true and self.mouse_over == false:
-			self.graph_utils.above_gnode = null
+			self.graph_manager.above_gnode = null
 
 # basic place class
 class Place:
 	extends GNode
 	
-	func _init(graph_utils, name, neighbours, position).(graph_utils, name, neighbours, position):
+	func _init(graph_manager, name, neighbours, position).(graph_manager, name, neighbours, position):
 		self.type.append("Place")
-		self.color = Color( 0, 0.39, 0, 1 )
+		self.child_node.get_node("Sprite").texture = load("res://images/place.png")
 
 
 # basic actor class
 class Actor:
 	extends GNode
 	
-	func _init(graph_utils, name, neighbours, position).(graph_utils, name, neighbours, position):
+	func _init(graph_manager, name, neighbours, position).(graph_manager, name, neighbours, position):
 		self.type.append("Actor")
-		self.color = Color( 1, 0.55, 0, 1 )
-	
+		self.child_node.get_node("Sprite").texture = load("res://images/person.png")
