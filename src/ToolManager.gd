@@ -3,7 +3,7 @@ extends Node2D
 class ToolBase:
 	extends Node2D
 	
-	func process_base_event(event, graph_manager, UI_node):
+	func process_base_event(event):
 		# handle right click menu
 		if event.is_action_pressed('right_click'):
 #			UI_node.toggle_mouse_menu(event.position)
@@ -12,11 +12,14 @@ class ToolBase:
 class SelectTool:
 	extends ToolBase
 	
-	func process_event(event, graph_manager, UI_node):
+	func process_event(event):
 		if event.is_action_pressed("left_click"):
-			graph_manager.selected_gnode = graph_manager.above_gnode
+			if GlobalVariables.above_gnode == null:
+				GlobalVariables.current_graph.selected_node = null
+			else:
+				GlobalVariables.current_graph.set_selected_node(GlobalVariables.above_gnode)
 		
-		self.process_base_event(event, graph_manager, UI_node)
+		self.process_base_event(event)
 
 class MoveTool:
 	extends ToolBase
@@ -24,7 +27,7 @@ class MoveTool:
 	# variables
 	var mouse_pressed = false
 	
-	func process_event(event, graph_manager, UI_node):
+	func process_event(event):
 		# track mouse clicking
 		if event.is_action_pressed("left_click"):
 			mouse_pressed = true
@@ -33,14 +36,17 @@ class MoveTool:
 		
 		# move node
 		if event.is_action_pressed("left_click"):
-			graph_manager.selected_gnode = graph_manager.above_gnode
+			if GlobalVariables.above_gnode == null:
+				GlobalVariables.current_graph.selected_node = null
+			else:
+				GlobalVariables.current_graph.set_selected_node(GlobalVariables.above_gnode)
+				
 		if mouse_pressed:
-			if graph_manager.selected_gnode:
-				graph_manager.move_gnode(
-					graph_manager.background.get_global_mouse_position()
-				)
+			if GlobalVariables.current_graph.selected_node:
+				GlobalVariables.current_graph.selected_node.position = GlobalVariables.current_graph.get_node("Background").get_global_mouse_position()
+				GlobalVariables.current_graph.update()
 
-		self.process_base_event(event, graph_manager, UI_node)
+		self.process_base_event(event)
 
 # initialize tools
 var tools = {

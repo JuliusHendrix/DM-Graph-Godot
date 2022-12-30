@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 # imports
-const gc = preload("res://src/graph_classes.gd")
+const graphNodes = preload("res://src/GraphNodes.gd")
 
 func initialize_tools(tools):
 	# add tools
@@ -11,8 +11,8 @@ func initialize_tools(tools):
 func get_current_tool():
 	return $PanelToolbar/OptionButtonTools.text
 
-func update_current_graph(graph : gc.Graph):
-	$LabelCurrentGraph.text = graph.name
+func update_current_graph():
+	$LabelCurrentGraph.text = GlobalVariables.current_graph.name
 
 func hide_panel_info():
 	$PanelInfo.visible = false
@@ -24,7 +24,7 @@ func toggle_mouse_menu(position : Vector2):
 		$PanelRightClickMenu.rect_position = position
 		$PanelRightClickMenu.visible = true
 
-func show_panel_info(gnode : gc.GNode):
+func show_panel_info(gnode : graphNodes.GNode):
 	$PanelInfo/LabelNodeName.text = gnode.name
 	$PanelInfo/LabelNodeType.text = gnode.type[-1]
 	$PanelInfo.visible = true
