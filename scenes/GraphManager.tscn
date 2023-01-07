@@ -1,0 +1,74 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://src/GraphManager/Types/Edges/Base.gd" type="Script" id=1]
+[ext_resource path="res://images/person.png" type="Texture" id=2]
+[ext_resource path="res://src/GraphManager/Types/Nodes/Place.gd" type="Script" id=3]
+[ext_resource path="res://scenes/BaseNode.tscn" type="PackedScene" id=4]
+[ext_resource path="res://images/place.png" type="Texture" id=5]
+[ext_resource path="res://src/GraphManager/Types/Nodes/Actor.gd" type="Script" id=6]
+[ext_resource path="res://src/GraphManager/Types/Edges/Weighted.gd" type="Script" id=7]
+[ext_resource path="res://scenes/Graph.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/GraphManager/GraphManager.gd" type="Script" id=9]
+[ext_resource path="res://images/root.png" type="Texture" id=10]
+[ext_resource path="res://src/GraphManager/Types/Nodes/Root.gd" type="Script" id=11]
+[ext_resource path="res://src/GraphManager/Types/Nodes/Base.gd" type="Script" id=12]
+
+[node name="GraphManager" type="Node2D"]
+script = ExtResource( 9 )
+
+[node name="Graphs" type="Node2D" parent="."]
+
+[node name="Types" type="Node2D" parent="."]
+
+[node name="Nodes" type="Node2D" parent="Types"]
+
+[node name="Base" type="Node2D" parent="Types/Nodes"]
+visible = false
+script = ExtResource( 12 )
+
+[node name="BaseNode" parent="Types/Nodes/Base" instance=ExtResource( 4 )]
+
+[node name="Place" type="Node2D" parent="Types/Nodes"]
+visible = false
+script = ExtResource( 3 )
+
+[node name="BaseNode" parent="Types/Nodes/Place" instance=ExtResource( 4 )]
+
+[node name="Sprite" type="Sprite" parent="Types/Nodes/Place"]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 5 )
+
+[node name="Actor" type="Node2D" parent="Types/Nodes"]
+visible = false
+script = ExtResource( 6 )
+
+[node name="BaseNode" parent="Types/Nodes/Actor" instance=ExtResource( 4 )]
+
+[node name="Sprite" type="Sprite" parent="Types/Nodes/Actor"]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+
+[node name="Root" type="Node2D" parent="Types/Nodes"]
+visible = false
+script = ExtResource( 11 )
+
+[node name="BaseNode" parent="Types/Nodes/Root" instance=ExtResource( 4 )]
+
+[node name="Sprite" type="Sprite" parent="Types/Nodes/Root"]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 10 )
+
+[node name="Edges" type="Node2D" parent="Types"]
+
+[node name="BaseEdge" type="Node2D" parent="Types/Edges"]
+visible = false
+script = ExtResource( 1 )
+
+[node name="Weighted" type="Node2D" parent="Types/Edges"]
+visible = false
+script = ExtResource( 7 )
+
+[node name="Graphs" type="Node2D" parent="Types"]
+
+[node name="BaseGraph" parent="Types/Graphs" instance=ExtResource( 8 )]
+visible = false

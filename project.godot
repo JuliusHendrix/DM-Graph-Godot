@@ -8,6 +8,34 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "BaseEdge",
+"language": "GDScript",
+"path": "res://src/GraphManager/Types/Edges/Base.gd"
+}, {
+"base": "Node2D",
+"class": "BaseNode",
+"language": "GDScript",
+"path": "res://src/GraphManager/Types/Nodes/Base.gd"
+}, {
+"base": "Node2D",
+"class": "BaseTool",
+"language": "GDScript",
+"path": "res://src/InputManager/Tools/BaseTool.gd"
+}, {
+"base": "Control",
+"class": "UIManager",
+"language": "GDScript",
+"path": "res://src/UIManager/UIManager.gd"
+} ]
+_global_script_class_icons={
+"BaseEdge": "",
+"BaseNode": "",
+"BaseTool": "",
+"UIManager": ""
+}
+
 [application]
 
 config/name="DM Graph"
@@ -20,8 +48,8 @@ GlobalVariables="*res://src/GlobalVariables.gd"
 
 [display]
 
-window/size/width=1280
-window/size/height=720
+window/size/width=1920
+window/size/height=1080
 
 [gui]
 

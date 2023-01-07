@@ -35,19 +35,22 @@ func _set_zoom_level(value: float) -> void:
 	tween.start()
 
 func _unhandled_input(event):
-	if event.is_action_pressed("zoom_in"):
-		# Inside a given class, we need to either write `self._zoom_level = ...` or explicitly
-		# call the setter function to use it.
-		_set_zoom_level(_zoom_level - zoom_factor)
-	if event.is_action_pressed("zoom_out"):
-		_set_zoom_level(_zoom_level + zoom_factor)
+	print("unhandled input")
+	if GlobalVariables.cameraMovementEnabled:
+		if event.is_action_pressed("zoom_in"):
+			# Inside a given class, we need to either write `self._zoom_level = ...` or explicitly
+			# call the setter function to use it.
+			_set_zoom_level(_zoom_level - zoom_factor)
+		if event.is_action_pressed("zoom_out"):
+			_set_zoom_level(_zoom_level + zoom_factor)
 
 func _process(delta):
-	if Input.is_action_pressed("pan_left"):
-		position += Vector2(_zoom_level * -pan_speed,0)
-	elif Input.is_action_pressed("pan_right"):
-		position += Vector2(_zoom_level * pan_speed,0)
-	if Input.is_action_pressed("pan_up"):
-		position += Vector2(0, _zoom_level * -pan_speed)
-	elif Input.is_action_pressed("pan_down"):
-		position += Vector2(0, _zoom_level * pan_speed)
+	if GlobalVariables.cameraMovementEnabled:
+		if Input.is_action_pressed("pan_left"):
+			position += Vector2(_zoom_level * -pan_speed,0)
+		elif Input.is_action_pressed("pan_right"):
+			position += Vector2(_zoom_level * pan_speed,0)
+		if Input.is_action_pressed("pan_up"):
+			position += Vector2(0, _zoom_level * -pan_speed)
+		elif Input.is_action_pressed("pan_down"):
+			position += Vector2(0, _zoom_level * pan_speed)
