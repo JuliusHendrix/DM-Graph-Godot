@@ -95,6 +95,25 @@ func load_test_graph2():
 	
 	test_graph.draw_edges()
 
+func highlight_all_graphs():
+	for graphName in graphs:
+		graphs[graphName].highlight_all_nodes()
+
+func dim_all_graphs():
+	for graphName in graphs:
+		graphs[graphName].dim_all_nodes()
+
+func hightlight_selected_graph():
+	if selected_graph == null:
+		dim_all_graphs()
+		return
+	
+	for graphName in graphs:
+		if graphs[graphName] == selected_graph:
+			graphs[graphName].highlight_all_nodes()
+		else:
+			graphs[graphName].dim_all_nodes()
+
 # make new graph and select it
 func add_graph(name : String, directed: bool = false):
 	var new_graph = $Types/Graphs/BaseGraph.duplicate()
@@ -106,6 +125,7 @@ func add_graph(name : String, directed: bool = false):
 	
 	graphs[name] = new_graph
 	selected_graph = new_graph
+	hightlight_selected_graph()
 	
 	return new_graph
 

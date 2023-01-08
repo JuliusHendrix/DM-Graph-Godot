@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://src/GraphManager/Types/Edges/Base.gd" type="Script" id=1]
 [ext_resource path="res://images/person.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://images/root.png" type="Texture" id=10]
 [ext_resource path="res://src/GraphManager/Types/Nodes/Root.gd" type="Script" id=11]
 [ext_resource path="res://src/GraphManager/Types/Nodes/Base.gd" type="Script" id=12]
+[ext_resource path="res://images/blank.png" type="Texture" id=13]
 
 [node name="GraphManager" type="Node2D"]
 script = ExtResource( 9 )
@@ -27,6 +28,10 @@ visible = false
 script = ExtResource( 12 )
 
 [node name="BaseNode" parent="Types/Nodes/Base" instance=ExtResource( 4 )]
+
+[node name="Sprite" type="Sprite" parent="Types/Nodes/Base"]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 13 )
 
 [node name="Place" type="Node2D" parent="Types/Nodes"]
 visible = false
