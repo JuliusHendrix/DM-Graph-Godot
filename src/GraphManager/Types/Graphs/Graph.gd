@@ -137,52 +137,53 @@ func draw_edges():
 				draw_line(
 					nodes[col_idx].position,
 					nodes[row_idx].position,
-					Color(0, 0, 0, edge.alpha),
-					1.53
+					edge.color,
+					edge.thickness
 				)
 
-func highlight_all_edges():
+func show_all_edges():
 	for edge in edges:
-		edge.highlight()
-	draw_edges()
+		edge.show()
 
 func dim_all_edges():
 	for edge in edges:
 		edge.dim()
-	draw_edges()
+
+func show_edges(shownEdges : Array):
+	for edge in shownEdges:
+		edge.show()
 
 func highlight_edges(highlightedEdges : Array):
-	for edge in edges:
-		if edge in highlightedEdges:
-			edge.highlight()
-	draw_edges()
+	for edge in highlightedEdges:
+		edge.highlight()
 	
-func highlight_all_nodes():
+func show_all_nodes():
 	for node in nodes:
-		node.highlight()
+		node.show()
 
 func dim_all_nodes():
 	for node in nodes:
 		node.dim()
 
+func show_nodes(shownNodes : Array):
+	for node in shownNodes:
+		node.show()
+
 func highlight_nodes(highlightedNodes : Array):
-	for node in nodes:
-		if node in highlightedNodes:
-			node.highlight()
+	for node in highlightedNodes:
+		node.highlight()
 
 func highlight_selected_node():
 	if selected_node == null:
-		highlight_all_nodes()
-		highlight_all_edges()
+		show_all_nodes()
+		show_all_edges()
 		return
 	
-	# highlight node and neighbours
+	# light up node, highlight neighbours
 	var neighbours = get_node_heigbours(selected_node)
-	for node in nodes:
-		if node == selected_node or node in neighbours:
-			node.highlight()
-		else:
-			node.dim()
+	dim_all_nodes()
+	show_nodes(neighbours)
+	selected_node.highlight()
 	
 	# highlight connecting edges
 	dim_all_edges()
@@ -197,7 +198,7 @@ func set_selected_node(node):
 	
 	selected_node = node
 
-func select_highlighted_node():
+func select_hovered_node():
 	for node in nodes:
 		if node.get_node("BaseNode").mouseOver:
 			set_selected_node(node)

@@ -35,7 +35,6 @@ func _set_zoom_level(value: float) -> void:
 	tween.start()
 
 func _unhandled_input(event):
-	print("unhandled input")
 	if GlobalVariables.cameraMovementEnabled:
 		if event.is_action_pressed("zoom_in"):
 			# Inside a given class, we need to either write `self._zoom_level = ...` or explicitly

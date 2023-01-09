@@ -24,5 +24,7 @@ func update():
 	var requested_node = $TabContainer/Nodes.get_requested()
 	if requested_node != null:
 		graph.set_selected_node(requested_node)
+		graph.highlight_selected_node()
+		graph.update()
 		selectedNode = requested_node
 	

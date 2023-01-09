@@ -95,13 +95,15 @@ func load_test_graph2():
 	
 	test_graph.draw_edges()
 
-func highlight_all_graphs():
+func show_all_graphs():
 	for graphName in graphs:
-		graphs[graphName].highlight_all_nodes()
+		graphs[graphName].show_all_nodes()
+		graphs[graphName].show_all_edges()
 
 func dim_all_graphs():
 	for graphName in graphs:
 		graphs[graphName].dim_all_nodes()
+		graphs[graphName].dim_all_edges()
 
 func hightlight_selected_graph():
 	if selected_graph == null:
@@ -110,9 +112,11 @@ func hightlight_selected_graph():
 	
 	for graphName in graphs:
 		if graphs[graphName] == selected_graph:
-			graphs[graphName].highlight_all_nodes()
+			graphs[graphName].show_all_nodes()
+			graphs[graphName].show_all_edges()
 		else:
 			graphs[graphName].dim_all_nodes()
+			graphs[graphName].dim_all_edges()
 
 # make new graph and select it
 func add_graph(name : String, directed: bool = false):

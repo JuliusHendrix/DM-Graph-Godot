@@ -11,7 +11,7 @@ func _ready():
 		$GraphManager.graphs
 	)
 
-func _input(event):
+func _unhandled_input(event):
 	# use tool
 	if GlobalVariables.toolsEnabled:
 		activeTool.process_event(event)
@@ -27,7 +27,7 @@ func update_tool():
 
 func select_node():
 	if $GraphManager.selected_graph != null:
-		$GraphManager.selected_graph.select_highlighted_node()
+		$GraphManager.selected_graph.select_hovered_node()
 		$GraphManager.selected_graph.highlight_selected_node()
 		$GraphManager.selected_graph.update()
 

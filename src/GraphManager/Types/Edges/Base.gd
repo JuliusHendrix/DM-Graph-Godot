@@ -8,10 +8,21 @@ var edgeType : Array = ["Base"]
 # TODO: global variables?
 var highlightedAlpha = 1.0
 var dimmedAlpha = 0.3
-var alpha = highlightedAlpha
+
+var highlightedThickness = 3
+var dimmedThickness = 2
+
+var color = Color(0, 0, 0, highlightedAlpha)
+var thickness = 1.5
 
 func highlight():
-	alpha = highlightedAlpha
+	color.a = highlightedAlpha
+	thickness = highlightedThickness
+
+func show():
+	color.a = highlightedAlpha
+	thickness = dimmedThickness
 
 func dim():
-	alpha = dimmedAlpha
+	color.a = dimmedAlpha
+	thickness = dimmedThickness

@@ -14,6 +14,12 @@ func set_name(name : String):
 
 func highlight():
 	$Sprite.modulate.a = highlightedAlpha
+	$BaseNode.light_on()
 
+func show():
+	$Sprite.modulate.a = highlightedAlpha
+	$BaseNode.light_off()
+	
 func dim():
 	$Sprite.modulate.a = dimmedAlpha
+	$BaseNode.light_off()
