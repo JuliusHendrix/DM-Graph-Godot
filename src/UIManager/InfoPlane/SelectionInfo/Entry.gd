@@ -7,7 +7,7 @@ func setup(node):
 	$Name.text = node.name
 	self.name = node.name
 	
-	$Type.text = node.nodeType[-1]
+	$Type.text = node.properties.type[-1]
 	
 	self.node = node
 

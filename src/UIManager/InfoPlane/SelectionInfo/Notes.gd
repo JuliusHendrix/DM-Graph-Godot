@@ -1,6 +1,7 @@
 extends TextEdit
 
 var mouse_over = false
+var saveNotesFunc : FuncRef
 
 func _input(event):
 	if event.is_action_pressed("left_click"):
@@ -12,7 +13,7 @@ func _on_Notes_focus_entered():
 
 func _on_Notes_focus_exited():
 	GlobalVariables.cameraMovementEnabled = true
-
+	saveNotesFunc.call_func(self.text)
 
 func _on_Notes_mouse_entered():
 	mouse_over = true

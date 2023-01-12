@@ -1,28 +1,26 @@
 extends Node2D
-
 class_name BaseEdge
 
-# node parameters
-var edgeType : Array = ["Base"]
+export var settings : Resource
+export var properties : Resource
 
-# TODO: global variables?
-var highlightedAlpha = 1.0
-var dimmedAlpha = 0.3
+var color : Color = Color(0, 0, 0, 1)
+var thickness : float = 1.5
 
-var highlightedThickness = 3
-var dimmedThickness = 2
-
-var color = Color(0, 0, 0, highlightedAlpha)
-var thickness = 1.5
+func get_properties():
+	var propertiesDict = {
+		"Type": properties.type
+	}
+	return propertiesDict
 
 func highlight():
-	color.a = highlightedAlpha
-	thickness = highlightedThickness
+	color.a = settings.highlightedAlpha
+	thickness = settings.highlightedThickness
 
 func show():
-	color.a = highlightedAlpha
-	thickness = dimmedThickness
+	color.a = settings.highlightedAlpha
+	thickness = settings.dimmedThickness
 
 func dim():
-	color.a = dimmedAlpha
-	thickness = dimmedThickness
+	color.a = settings.dimmedAlpha
+	thickness = settings.dimmedThickness

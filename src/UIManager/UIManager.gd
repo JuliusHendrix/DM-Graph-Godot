@@ -2,33 +2,15 @@ extends Control
 
 class_name UIManager
 
-var selectedTool : String
+var toolbar
 
 func _ready():
-	_on_SelectButton_pressed()
+	select_graph($GraphManager.selectedGraph)
+	$UI/Toolbar._on_SelectButton_pressed()
 
 func _process(_delta):
 	$UI/InfoPlane.update()
 
-func _on_SelectButton_pressed():
-	# set selected tool
-	selectedTool = "select"
-	
-	# depress all buttons
-	for button in $UI/Toolbar.get_children():
-		button.pressed = false
-	
-	# press this button
-	$UI/Toolbar/SelectButton.pressed = true
-
-func _on_MoveButton_pressed():
-	# set selected tool
-	selectedTool = "move"
-	
-	# depress all buttons
-	for button in $UI/Toolbar.get_children():
-		button.pressed = false
-	
-	# press this button
-	$UI/Toolbar/MoveButton.pressed = true
-
+func select_graph(graph):
+	$UI/InfoPlane/GraphInfo.display_graph_info(graph)
+	$UI/InfoPlane/SelectionInfo.graph = graph

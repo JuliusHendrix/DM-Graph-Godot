@@ -9,10 +9,10 @@ func move_node(event):
 	# track mouse clicking
 	if event.is_action_pressed("left_click"):
 		mouse_pressed = true
-		self.inputManager.select_node()
+		self.toolManager.select_node()
 	elif event.is_action_released("left_click"):
 		mouse_pressed = false
 	
 	# possibly move the selected node
 	if mouse_pressed:
-		self.inputManager.move_selected_node_to_mouse()
+		self.toolManager.move_selected_node_to_mouse()

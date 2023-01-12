@@ -1,4 +1,9 @@
 extends BaseNode
 
-func _ready():
-	self.nodeType.append("Place")
+func get_properties():
+	var propertiesDict = {
+		"Name": properties.name,
+		"Type": properties.type,
+		"Position": properties.position
+	}
+	return propertiesDict

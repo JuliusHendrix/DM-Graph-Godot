@@ -1,25 +1,33 @@
 extends Node2D
-
 class_name BaseNode
 
-var highlightedAlpha = 1.0
-var dimmedAlpha = 0.3
+export var settings : Resource
+export var properties : Resource
 
-# node parameters
-var nodeType : Array = ["Base"]
+func get_properties():
+	var propertiesDict = {
+		"Name": properties.name,
+		"Type": properties.type,
+		"Position": properties.position
+	}
+	return propertiesDict
 
-func set_name(name : String):
-	$BaseNode.set_label_name(name)
-	self.name = name
+func update_properties():
+	# name 
+	$TemplateNode.set_label_name(properties.name)
+	self.name = properties.name
+
+	# position
+	self.position = properties.position
 
 func highlight():
-	$Sprite.modulate.a = highlightedAlpha
-	$BaseNode.light_on()
+	$Sprite.modulate.a = settings.highlightedAlpha
+	$TemplateNode.light_on()
 
 func show():
-	$Sprite.modulate.a = highlightedAlpha
-	$BaseNode.light_off()
+	$Sprite.modulate.a = settings.highlightedAlpha
+	$TemplateNode.light_off()
 	
 func dim():
-	$Sprite.modulate.a = dimmedAlpha
-	$BaseNode.light_off()
+	$Sprite.modulate.a = settings.dimmedAlpha
+	$TemplateNode.light_off()

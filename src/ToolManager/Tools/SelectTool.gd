@@ -5,6 +5,5 @@ func _init():
 
 func select_node(event):
 	if event.is_action_pressed("left_click"):
-		print("left_click tool")
-		self.inputManager.select_node()
-		self.inputManager.show_selected_node()
+		self.toolManager.select_node()
+

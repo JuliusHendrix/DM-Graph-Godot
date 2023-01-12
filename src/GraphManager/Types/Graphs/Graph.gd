@@ -1,25 +1,27 @@
 extends CanvasItem
 
-var directed : bool = false
+export var properties : Resource
 
 var nodes : Array
 var edges : Array
-var adjacency_matrix = []
 
 var selected_node = null
 
-var graphType = ["Base"]
+func update_properties():
+	self.name = properties.name
 
 func expand_adjacency_matrix():
+	if properties.adjacencyMatrix.size() == 0:
+		properties.adjacencyMatrix = []
 	# if undirected, we only need the top triangle of the matrix
-	for i_col in self.adjacency_matrix.size():
-		self.adjacency_matrix[i_col].append(-1)
+	for i_col in properties.adjacencyMatrix.size():
+		properties.adjacencyMatrix[i_col].append(-1)
 		
 	var new_column = []
 	for i in range(self.nodes.size()):
 		new_column.append(-1)
 		
-	self.adjacency_matrix.append(new_column)
+	properties.adjacencyMatrix.append(new_column)
 
 func update_adjacency_matrix(
 	edge_idx : int,
@@ -35,16 +37,16 @@ func update_adjacency_matrix(
 #			col_idx = receiver_idx
 #			row_idx = sender_idx
 	
-	self.adjacency_matrix[col_idx][row_idx] = edge_idx
+	properties.adjacencyMatrix[col_idx][row_idx] = edge_idx
 
 func get_edges_from_from_node(node):
 	var nodeIdx = nodes.find(node, 0)
 	var sendingEdges = []
 	# find sending edges
-	for row_idx in range(adjacency_matrix[nodeIdx].size()):
-		if adjacency_matrix[nodeIdx][row_idx] != -1:
+	for row_idx in range(properties.adjacencyMatrix[nodeIdx].size()):
+		if properties.adjacencyMatrix[nodeIdx][row_idx] != -1:
 			sendingEdges.append(
-				edges[adjacency_matrix[nodeIdx][row_idx]]
+				edges[properties.adjacencyMatrix[nodeIdx][row_idx]]
 			)
 	return sendingEdges
 
@@ -52,10 +54,10 @@ func get_edges_from_to_node(node):
 	var nodeIdx = nodes.find(node, 0)
 	var receivingEdges = []
 	# find receivingEdges edges
-	for col_idx in range(adjacency_matrix[nodeIdx].size()):
-		if adjacency_matrix[col_idx][nodeIdx] != -1:
+	for col_idx in range(properties.adjacencyMatrix[nodeIdx].size()):
+		if properties.adjacencyMatrix[col_idx][nodeIdx] != -1:
 			receivingEdges.append(
-				edges[adjacency_matrix[col_idx][nodeIdx]]
+				edges[properties.adjacencyMatrix[col_idx][nodeIdx]]
 			)
 	return receivingEdges
 
@@ -63,8 +65,8 @@ func get_node_senders(node):
 	var nodeIdx = nodes.find(node, 0)
 	# find sending nodes
 	var sendingNodes = []
-	for col_idx in range(adjacency_matrix[nodeIdx].size()):
-		if adjacency_matrix[col_idx][nodeIdx] != -1:
+	for col_idx in range(properties.adjacencyMatrix[nodeIdx].size()):
+		if properties.adjacencyMatrix[col_idx][nodeIdx] != -1:
 			sendingNodes.append(nodes[col_idx])
 	return sendingNodes
 
@@ -72,12 +74,12 @@ func get_node_receivers(node):
 	var nodeIdx = nodes.find(node, 0)
 	# find sending nodes
 	var receivingNodes = []
-	for row_idx in range(adjacency_matrix[nodeIdx].size()):
-		if adjacency_matrix[nodeIdx][row_idx] != -1:
+	for row_idx in range(properties.adjacencyMatrix[nodeIdx].size()):
+		if properties.adjacencyMatrix[nodeIdx][row_idx] != -1:
 			receivingNodes.append(nodes[row_idx])
 	return receivingNodes
 
-func get_node_heigbours(node):
+func get_node_neighbours(node):
 	var neighbours = []
 	neighbours.append_array(get_node_senders(node))
 	neighbours.append_array(get_node_receivers(node))
@@ -85,7 +87,6 @@ func get_node_heigbours(node):
 
 # add a node and the correspondig edges
 func add_node(node):
-
 	# check if node already exists
 	if nodes.find(node) != -1:
 		print('node already added!')
@@ -130,16 +131,18 @@ func _draw():
 	draw_edges()
 
 func draw_edges():
-	for col_idx in range(adjacency_matrix.size()):
-		for row_idx in range(adjacency_matrix[col_idx].size()):
-			if adjacency_matrix[col_idx][row_idx] != -1:
-				var edge = edges[adjacency_matrix[col_idx][row_idx]]
-				draw_line(
-					nodes[col_idx].position,
-					nodes[row_idx].position,
-					edge.color,
-					edge.thickness
-				)
+	for col_idx in range(properties.adjacencyMatrix.size()):
+		for row_idx in range(properties.adjacencyMatrix[col_idx].size()):
+			if properties.adjacencyMatrix[col_idx][row_idx] == -1:
+				continue
+				
+			var edge = edges[properties.adjacencyMatrix[col_idx][row_idx]]
+			draw_line(
+				nodes[col_idx].position,
+				nodes[row_idx].position,
+				edge.color,
+				edge.thickness
+			)
 
 func show_all_edges():
 	for edge in edges:
@@ -180,7 +183,7 @@ func highlight_selected_node():
 		return
 	
 	# light up node, highlight neighbours
-	var neighbours = get_node_heigbours(selected_node)
+	var neighbours = get_node_neighbours(selected_node)
 	dim_all_nodes()
 	show_nodes(neighbours)
 	selected_node.highlight()
@@ -198,12 +201,21 @@ func set_selected_node(node):
 	
 	selected_node = node
 
-func select_hovered_node():
+func select_node(node):
+	set_selected_node(node)
+	highlight_selected_node()
+	self.update()
+
+func deselect_node():
+	self.selected_node = null
+	highlight_selected_node()
+	self.update()
+
+func get_hovered_node():
 	for node in nodes:
-		if node.get_node("BaseNode").mouseOver:
-			set_selected_node(node)
-			return
-	selected_node = null
+		if node.get_node("TemplateNode").mouseOver:
+			return node
+	return null
 
 func move_selected_node(position : Vector2):
 	if selected_node == null:

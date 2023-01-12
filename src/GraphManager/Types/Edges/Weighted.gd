@@ -1,6 +1,8 @@
 extends BaseEdge
 
-var weight = 1.0
-
-func _ready():
-	self.edgeType.append("Weighted")
+func get_properties():
+	var propertiesDict = {
+		"Type": properties.type,
+		"Weights": properties.weights
+	}
+	return propertiesDict

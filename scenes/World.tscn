@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
+[ext_resource path="res://scenes/UIManager.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Camera2D.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/InputManager.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -13,7 +13,7 @@ script = ExtResource( 1 )
 
 [node name="ZoomingCamera2D" parent="." instance=ExtResource( 3 )]
 
-[node name="InputManager" parent="." instance=ExtResource( 4 )]
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
+
+[node name="UIManager" parent="." instance=ExtResource( 2 )]

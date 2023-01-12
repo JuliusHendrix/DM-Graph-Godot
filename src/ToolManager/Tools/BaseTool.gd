@@ -2,7 +2,7 @@ extends Node2D
 
 class_name BaseTool
 
-onready var inputManager = self.get_parent().get_parent()
+onready var toolManager = self.get_parent().get_parent()
 
 var eventLogicDict = {}
 
