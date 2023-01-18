@@ -1,5 +1,7 @@
 extends Panel
 
+onready var popupWindows = get_parent().get_parent().get_node("PopupWindows")
+
 var node = null
 var graph = null
 var selectedNode = null
@@ -13,14 +15,10 @@ func display_node_info(node, graph):
 		return
 
 	# set name
-	$Contents/Name.text = node.properties.name
+	$Contents/HBoxContainer/VBoxContainer/Name.text = node.properties.name
 	
 	# display type
-	var typeString = ""
-	for type in node.properties.type:
-		typeString += "/"
-		typeString += type
-	$Contents/Type.text = typeString
+	$Contents/HBoxContainer/VBoxContainer/Type.text = Utils.type_array_to_string(node.properties.type)
 	
 	# display connections
 	$Contents/TabContainer/Connections.clear_entries()
@@ -42,7 +40,13 @@ func update():
 		if requested_node != null:
 			graph.select_node(requested_node)
 		
-		if graph.selected_node != selectedNode:
+		if graph.selected_node == null:
+			self.selectedNode = null
+			self.visible = false
+		elif graph.selected_node != selectedNode:
+			self.visible = true
 			selectedNode = graph.selected_node
 			display_node_info(selectedNode, graph)
-	
+		
+func _on_DeleteButton_pressed():
+	popupWindows.get_node("DeleteNode").popup()

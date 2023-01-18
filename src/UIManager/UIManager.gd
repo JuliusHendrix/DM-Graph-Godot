@@ -14,3 +14,6 @@ func _process(_delta):
 func select_graph(graph):
 	$UI/InfoPlane/GraphInfo.display_graph_info(graph)
 	$UI/InfoPlane/SelectionInfo.graph = graph
+
+func rebuild_ui():
+	$UI/InfoPlane/GraphInfo.display_graph_info($UI/InfoPlane/GraphInfo.graph)

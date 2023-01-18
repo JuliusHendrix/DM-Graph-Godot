@@ -99,6 +99,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GlobalVariables="*res://src/GlobalVariables.gd"
+Utils="*res://src/Utils.gd"
 
 [display]
 

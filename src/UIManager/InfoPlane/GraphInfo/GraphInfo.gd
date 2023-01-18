@@ -1,5 +1,7 @@
 extends Panel
 
+onready var popupWindows = get_parent().get_parent().get_node("PopupWindows")
+
 var graph = null
 
 func display_graph_info(graph):
@@ -7,12 +9,7 @@ func display_graph_info(graph):
 	$Contents/Name.text = graph.name
 	
 	# display type
-	var typeString = ""
-	for type in graph.properties.type:
-		typeString += "/"
-		typeString += type
-	$Contents/Type.text = typeString
-	
+	$Contents/Type.text = Utils.type_array_to_string(graph.properties.type)
 	$Contents/TabContainer/Nodes.clear_entries()
 	for node in graph.nodes:
 		$Contents/TabContainer/Nodes.add_entry(node)
@@ -24,3 +21,5 @@ func update():
 	if requested_node != null:
 		graph.select_node(requested_node)
 	
+func _on_AddButton_pressed():
+	popupWindows.get_node("NewNode").popup()

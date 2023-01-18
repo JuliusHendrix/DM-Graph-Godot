@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/UIManager/UIManager.gd" type="Script" id=1]
 [ext_resource path="res://src/UIManager/InfoPlane/SelectionInfo/Notes.gd" type="Script" id=2]
@@ -12,6 +12,11 @@
 [ext_resource path="res://src/UIManager/InfoPlane/Toolbar.gd" type="Script" id=10]
 [ext_resource path="res://scenes/GraphManager.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/ToolManager.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/UIManager/MenuBar/MenuBar.gd" type="Script" id=13]
+[ext_resource path="res://src/UIManager/PopupWindows/NewNode/NameLineEdit.gd" type="Script" id=14]
+[ext_resource path="res://src/UIManager/PopupWindows/NewNode/NewNode.gd" type="Script" id=15]
+[ext_resource path="res://src/UIManager/PopupWindows/NodeTypes/NodeTypes.gd" type="Script" id=16]
+[ext_resource path="res://src/UIManager/PopupWindows/DeleteNode.gd" type="Script" id=17]
 
 [node name="UIManager" type="Control"]
 anchor_right = 1.0
@@ -23,6 +28,7 @@ script = ExtResource( 1 )
 [node name="MenuBar" type="Panel" parent="UI"]
 anchor_right = 1.0
 margin_bottom = 30.0
+script = ExtResource( 13 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuBar"]
 anchor_right = 1.0
@@ -64,6 +70,13 @@ margin_bottom = 30.0
 toggle_mode = true
 text = "Move"
 
+[node name="ConnectButton" type="Button" parent="UI/Toolbar"]
+margin_left = 106.0
+margin_right = 170.0
+margin_bottom = 30.0
+toggle_mode = true
+text = "Connect"
+
 [node name="InfoPlane" type="Control" parent="UI"]
 anchor_left = 0.85
 anchor_right = 1.0
@@ -71,110 +84,9 @@ anchor_bottom = 1.0
 mouse_filter = 1
 script = ExtResource( 5 )
 
-[node name="SelectionInfo" type="Panel" parent="UI/InfoPlane"]
-anchor_top = 0.5
+[node name="BackgroundPanel" type="Panel" parent="UI/InfoPlane"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_rotation = 0.0261821
-script = ExtResource( 3 )
-
-[node name="HeaderPanel" type="Panel" parent="UI/InfoPlane/SelectionInfo"]
-anchor_right = 1.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
-
-[node name="ColorRect" type="ColorRect" parent="UI/InfoPlane/SelectionInfo/HeaderPanel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0.494118, 0.654902, 1 )
-
-[node name="HeaderLabel" type="Label" parent="UI/InfoPlane/SelectionInfo/HeaderPanel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Node Information"
-align = 1
-valign = 1
-
-[node name="Contents" type="VBoxContainer" parent="UI/InfoPlane/SelectionInfo"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 37.0
-margin_right = -5.0
-margin_bottom = -5.0
-custom_constants/separation = 7
-alignment = 1
-
-[node name="Name" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents"]
-margin_right = 278.0
-margin_bottom = 14.0
-text = "Name"
-align = 1
-valign = 1
-
-[node name="Type" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents"]
-margin_top = 21.0
-margin_right = 278.0
-margin_bottom = 35.0
-text = "Type"
-align = 1
-valign = 1
-
-[node name="TabContainer" type="TabContainer" parent="UI/InfoPlane/SelectionInfo/Contents"]
-margin_top = 42.0
-margin_right = 278.0
-margin_bottom = 498.0
-size_flags_vertical = 3
-
-[node name="Connections" type="VBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-script = ExtResource( 4 )
-
-[node name="Entry" type="Panel" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections"]
-visible = false
-margin_right = 270.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
-script = ExtResource( 9 )
-
-[node name="Name" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/Entry"]
-anchor_right = 0.45
-anchor_bottom = 1.0
-text = "Node name"
-align = 1
-valign = 1
-
-[node name="Type" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/Entry"]
-anchor_left = 0.45
-anchor_right = 0.75
-anchor_bottom = 1.0
-text = "Node Type"
-align = 1
-valign = 1
-
-[node name="SelectButton" type="Button" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/Entry"]
-anchor_left = 0.75
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-text = "Select"
-
-[node name="Notes" type="TextEdit" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-script = ExtResource( 2 )
 
 [node name="GraphInfo" type="Panel" parent="UI/InfoPlane"]
 anchor_right = 1.0
@@ -228,7 +140,7 @@ margin_right = 278.0
 margin_bottom = 498.0
 size_flags_vertical = 3
 
-[node name="Nodes" type="VBoxContainer" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer"]
+[node name="Nodes" type="Panel" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -237,7 +149,14 @@ margin_right = -4.0
 margin_bottom = -4.0
 script = ExtResource( 8 )
 
-[node name="Entry" type="Panel" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -40.0
+rect_pivot_offset = Vector2( -455, -122 )
+custom_constants/separation = 0
+
+[node name="Entry" type="Panel" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/VBoxContainer"]
 visible = false
 margin_right = 270.0
 margin_bottom = 30.0
@@ -245,22 +164,23 @@ rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
 script = ExtResource( 7 )
 
-[node name="Name" type="Label" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/Entry"]
+[node name="Name" type="Label" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/VBoxContainer/Entry"]
 anchor_right = 0.45
 anchor_bottom = 1.0
 text = "Node name"
 align = 1
 valign = 1
 
-[node name="Type" type="Label" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/Entry"]
+[node name="Type" type="Label" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/VBoxContainer/Entry"]
 anchor_left = 0.45
 anchor_right = 0.75
 anchor_bottom = 1.0
+custom_colors/font_color = Color( 0.172549, 0.647059, 0.552941, 1 )
 text = "Node Type"
 align = 1
 valign = 1
 
-[node name="SelectButton" type="Button" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/Entry"]
+[node name="SelectButton" type="Button" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/VBoxContainer/Entry"]
 anchor_left = 0.75
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -269,15 +189,333 @@ margin_right = -5.0
 margin_bottom = -5.0
 text = "Select"
 
+[node name="AddButton" type="Button" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = -35.0
+margin_right = -5.0
+margin_bottom = -10.0
+rect_min_size = Vector2( 0, 30 )
+text = "+"
+
+[node name="SelectionInfo" type="Panel" parent="UI/InfoPlane"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_rotation = 0.0261821
+script = ExtResource( 3 )
+
+[node name="HeaderPanel" type="Panel" parent="UI/InfoPlane/SelectionInfo"]
+anchor_right = 1.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/InfoPlane/SelectionInfo/HeaderPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0.494118, 0.654902, 1 )
+
+[node name="HeaderLabel" type="Label" parent="UI/InfoPlane/SelectionInfo/HeaderPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Node Information"
+align = 1
+valign = 1
+
+[node name="Contents" type="VBoxContainer" parent="UI/InfoPlane/SelectionInfo"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 37.0
+margin_right = -5.0
+margin_bottom = -5.0
+custom_constants/separation = 7
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents"]
+margin_right = 278.0
+margin_bottom = 32.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer"]
+margin_right = 219.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+
+[node name="Name" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/VBoxContainer"]
+margin_right = 219.0
+margin_bottom = 14.0
+text = "Name"
+align = 1
+valign = 1
+
+[node name="Type" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 219.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0.172549, 0.647059, 0.552941, 1 )
+text = "Type"
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer"]
+margin_left = 223.0
+margin_right = 278.0
+margin_bottom = 32.0
+alignment = 2
+
+[node name="DeleteButton" type="Button" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/HBoxContainer"]
+margin_right = 55.0
+margin_bottom = 32.0
+text = "Delete"
+icon_align = 1
+
+[node name="TabContainer" type="TabContainer" parent="UI/InfoPlane/SelectionInfo/Contents"]
+margin_top = 39.0
+margin_right = 278.0
+margin_bottom = 498.0
+size_flags_vertical = 3
+
+[node name="Notes" type="TextEdit" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 2 )
+
+[node name="Connections" type="Panel" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -40.0
+
+[node name="Entry" type="Panel" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/VBoxContainer"]
+visible = false
+margin_right = 270.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+script = ExtResource( 9 )
+
+[node name="Name" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/VBoxContainer/Entry"]
+anchor_right = 0.45
+anchor_bottom = 1.0
+text = "Node name"
+align = 1
+valign = 1
+
+[node name="Type" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/VBoxContainer/Entry"]
+anchor_left = 0.45
+anchor_right = 0.75
+anchor_bottom = 1.0
+text = "Node Type"
+align = 1
+valign = 1
+
+[node name="SelectButton" type="Button" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/VBoxContainer/Entry"]
+anchor_left = 0.75
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+text = "Select"
+
+[node name="AddButton" type="Button" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = -35.0
+margin_right = -5.0
+margin_bottom = -10.0
+rect_min_size = Vector2( 0, 30 )
+text = "+"
+
+[node name="PopupWindows" type="Control" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="NewNode" type="WindowDialog" parent="UI/PopupWindows"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -56.0
+margin_right = 125.0
+margin_bottom = 148.0
+popup_exclusive = true
+window_title = "New Node"
+script = ExtResource( 15 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PopupWindows/NewNode"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -56.0
+
+[node name="NameLabel" type="Label" parent="UI/PopupWindows/NewNode/VBoxContainer"]
+margin_right = 230.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+text = "Name:"
+align = 1
+valign = 1
+
+[node name="NameLineEdit" type="LineEdit" parent="UI/PopupWindows/NewNode/VBoxContainer"]
+margin_top = 24.0
+margin_right = 230.0
+margin_bottom = 48.0
+align = 1
+script = ExtResource( 14 )
+
+[node name="TypeLabel" type="Label" parent="UI/PopupWindows/NewNode/VBoxContainer"]
+margin_top = 52.0
+margin_right = 230.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+text = "Type:"
+align = 1
+valign = 1
+
+[node name="TypeButton" type="Button" parent="UI/PopupWindows/NewNode/VBoxContainer"]
+margin_top = 76.0
+margin_right = 230.0
+margin_bottom = 101.0
+rect_min_size = Vector2( 0, 25 )
+text = "/Base"
+
+[node name="PlaceButton" type="Button" parent="UI/PopupWindows/NewNode"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -40.0
+margin_right = 50.0
+margin_bottom = -10.0
+text = "Place"
+
+[node name="NodeTypes" type="WindowDialog" parent="UI/PopupWindows"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -151.5
+margin_top = -168.5
+margin_right = 151.5
+margin_bottom = 168.5
+popup_exclusive = true
+window_title = "Node Types"
+script = ExtResource( 16 )
+
+[node name="Tree" type="Tree" parent="UI/PopupWindows/NodeTypes"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -50.0
+
+[node name="Button" type="Button" parent="UI/PopupWindows/NodeTypes"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -45.5
+margin_top = -40.0
+margin_right = 45.5
+margin_bottom = -10.0
+text = "Select"
+
+[node name="DeleteNode" type="WindowDialog" parent="UI/PopupWindows"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -163.5
+margin_top = -45.0
+margin_right = 163.5
+margin_bottom = 45.0
+script = ExtResource( 17 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PopupWindows/DeleteNode"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 5.0
+margin_right = -10.0
+margin_bottom = -5.0
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/PopupWindows/DeleteNode/VBoxContainer"]
+margin_top = 13.0
+margin_right = 307.0
+margin_bottom = 27.0
+text = "Are you sure you want to delete this node?"
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PopupWindows/DeleteNode/VBoxContainer"]
+margin_top = 37.0
+margin_right = 307.0
+margin_bottom = 67.0
+alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="UI/PopupWindows/DeleteNode/VBoxContainer/HBoxContainer"]
+margin_left = 93.0
+margin_right = 155.0
+margin_bottom = 30.0
+text = "Confirm"
+
+[node name="CancelButton" type="Button" parent="UI/PopupWindows/DeleteNode/VBoxContainer/HBoxContainer"]
+margin_left = 159.0
+margin_right = 213.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+text = "Cancel"
+
 [node name="GraphManager" parent="." instance=ExtResource( 11 )]
 
 [node name="ToolManager" parent="." instance=ExtResource( 12 )]
 
 [connection signal="pressed" from="UI/Toolbar/SelectButton" to="UI/Toolbar" method="_on_SelectButton_pressed"]
 [connection signal="pressed" from="UI/Toolbar/MoveButton" to="UI/Toolbar" method="_on_MoveButton_pressed"]
-[connection signal="pressed" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/Entry/SelectButton" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/Entry" method="_on_SelectButton_pressed"]
+[connection signal="pressed" from="UI/Toolbar/ConnectButton" to="UI/Toolbar" method="_on_ConnectButton_pressed"]
+[connection signal="pressed" from="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/VBoxContainer/Entry/SelectButton" to="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/VBoxContainer/Entry" method="_on_SelectButton_pressed"]
+[connection signal="pressed" from="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/AddButton" to="UI/InfoPlane/GraphInfo" method="_on_AddButton_pressed"]
+[connection signal="pressed" from="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/HBoxContainer/DeleteButton" to="UI/InfoPlane/SelectionInfo" method="_on_DeleteButton_pressed"]
 [connection signal="focus_entered" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" method="_on_Notes_focus_entered"]
 [connection signal="focus_exited" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" method="_on_Notes_focus_exited"]
 [connection signal="mouse_entered" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" method="_on_Notes_mouse_entered"]
 [connection signal="mouse_exited" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" method="_on_Notes_mouse_exited"]
-[connection signal="pressed" from="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/Entry/SelectButton" to="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/Entry" method="_on_SelectButton_pressed"]
+[connection signal="pressed" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/VBoxContainer/Entry/SelectButton" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/VBoxContainer/Entry" method="_on_SelectButton_pressed"]
+[connection signal="about_to_show" from="UI/PopupWindows/NewNode" to="UI/PopupWindows/NewNode" method="_on_NewNode_about_to_show"]
+[connection signal="focus_entered" from="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_focus_entered"]
+[connection signal="focus_exited" from="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_focus_exited"]
+[connection signal="mouse_entered" from="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_mouse_entered"]
+[connection signal="mouse_exited" from="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_mouse_exited"]
+[connection signal="pressed" from="UI/PopupWindows/NewNode/VBoxContainer/TypeButton" to="UI/PopupWindows/NewNode" method="_on_TypeButton_pressed"]
+[connection signal="pressed" from="UI/PopupWindows/NewNode/PlaceButton" to="UI/PopupWindows/NewNode" method="_on_PlaceButton_pressed"]
+[connection signal="about_to_show" from="UI/PopupWindows/NodeTypes" to="UI/PopupWindows/NodeTypes" method="_on_NodeTypes_about_to_show"]
+[connection signal="pressed" from="UI/PopupWindows/NodeTypes/Button" to="UI/PopupWindows/NodeTypes" method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/PopupWindows/DeleteNode/VBoxContainer/HBoxContainer/ConfirmButton" to="UI/PopupWindows/DeleteNode" method="_on_ConfirmButton_pressed"]
+[connection signal="pressed" from="UI/PopupWindows/DeleteNode/VBoxContainer/HBoxContainer/CancelButton" to="UI/PopupWindows/DeleteNode" method="_on_CancelButton_pressed"]

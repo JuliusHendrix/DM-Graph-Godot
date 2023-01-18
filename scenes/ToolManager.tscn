@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/ToolManager/Tools/BaseTool.gd" type="Script" id=1]
 [ext_resource path="res://src/ToolManager/Tools/SelectTool.gd" type="Script" id=2]
 [ext_resource path="res://src/ToolManager/ToolManager.gd" type="Script" id=3]
 [ext_resource path="res://src/ToolManager/Tools/MoveTool.gd" type="Script" id=4]
 [ext_resource path="res://src/ToolManager/Tools.gd" type="Script" id=5]
+[ext_resource path="res://src/ToolManager/Tools/ConnectTool.gd" type="Script" id=6]
 
 [node name="ToolManager" type="Control"]
 script = ExtResource( 3 )
@@ -20,3 +21,6 @@ script = ExtResource( 2 )
 
 [node name="MoveTool" type="Node2D" parent="Tools"]
 script = ExtResource( 4 )
+
+[node name="ConnectTool" type="Node2D" parent="Tools"]
+script = ExtResource( 6 )

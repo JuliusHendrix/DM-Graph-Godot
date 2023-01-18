@@ -10,7 +10,7 @@ var selected_node = null
 func update_properties():
 	self.name = properties.name
 
-func expand_adjacency_matrix():
+func add_node_to_adjacency_matrix():
 	if properties.adjacencyMatrix.size() == 0:
 		properties.adjacencyMatrix = []
 	# if undirected, we only need the top triangle of the matrix
@@ -23,7 +23,15 @@ func expand_adjacency_matrix():
 		
 	properties.adjacencyMatrix.append(new_column)
 
-func update_adjacency_matrix(
+func remove_node_from_adjacency_matrix(nodeIdx):
+	# remove from columns
+	properties.adjacencyMatrix.remove(nodeIdx)
+	
+	# remove from rows
+	for colIdx in range(properties.adjacencyMatrix.size()):
+		properties.adjacencyMatrix[colIdx].remove(nodeIdx)
+
+func add_edge_to_adjacency_matrix(
 	edge_idx : int,
 	sender_idx : int,
 	receiver_idx : int
@@ -94,10 +102,27 @@ func add_node(node):
 	
 	# add node
 	nodes.append(node)
-	expand_adjacency_matrix()
+	add_node_to_adjacency_matrix()
 	
 	# add godot node
 	$Nodes.add_child(node)
+
+func remove_node(node):
+	if not node in nodes:
+		print("Node not in graph: ", node)
+		return
+	
+	# remove from node list
+	var nodeIdx = nodes.find(node)
+	nodes.remove(nodeIdx)
+	remove_node_from_adjacency_matrix(nodeIdx)
+	node.queue_free()
+	self.update()
+
+func remove_selected_node():
+	show_all_nodes()
+	show_all_edges()
+	remove_node(selected_node)
 
 func add_edge(
 	edge,
@@ -121,9 +146,18 @@ func add_edge(
 		print('edge already in graph!')
 		return
 	
+	# check if these nodes are already conneceted
+	if properties.adjacencyMatrix[sender_idx][receiver_idx] != -1:
+		print("these nodes are already connected")
+		return
+	if properties.directed == false:
+		if properties.adjacencyMatrix[receiver_idx][sender_idx] != -1:
+			print("these nodes are already connected")
+			return
+	
 	edges.append(edge)
 	var edge_idx = edges.find(edge)
-	update_adjacency_matrix(edge_idx, sender_idx, receiver_idx)
+	add_edge_to_adjacency_matrix(edge_idx, sender_idx, receiver_idx)
 	
 	$Edges.add_child(edge)
 

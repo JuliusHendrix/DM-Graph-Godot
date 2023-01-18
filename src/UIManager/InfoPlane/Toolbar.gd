@@ -17,3 +17,10 @@ func _on_MoveButton_pressed():
 	toolmanager.set_tool("Move")
 	depress_all_buttons()
 	$MoveButton.pressed = true
+
+func _on_ConnectButton_pressed():
+	if toolmanager.set_tool("Connect"):
+		depress_all_buttons()
+		$ConnectButton.pressed = true
+	else:
+		$ConnectButton.pressed = false

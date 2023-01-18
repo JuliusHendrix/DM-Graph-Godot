@@ -1,11 +1,12 @@
-extends VBoxContainer
+extends Panel
 
 var entries : Array = []
 
+
 func add_entry(node):
-	var new_entry = $Entry.duplicate()
+	var new_entry = $VBoxContainer/Entry.duplicate()
 	entries.append(new_entry)
-	self.add_child(new_entry)
+	$VBoxContainer.add_child(new_entry)
 	new_entry.setup(node)
 	new_entry.visible = true
 
@@ -20,3 +21,6 @@ func get_requested():
 			entry.requested = false
 			return entry.node
 	return null
+
+func _on_AddButton_pressed():
+	print(get_tree().root)
