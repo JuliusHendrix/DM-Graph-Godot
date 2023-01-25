@@ -6,7 +6,7 @@ var graph = null
 
 func display_graph_info(graph):
 	# set name
-	$Contents/Name.text = graph.name
+	$Contents/Name.text = graph.properties.name
 	
 	# display type
 	$Contents/Type.text = Utils.type_array_to_string(graph.properties.type)

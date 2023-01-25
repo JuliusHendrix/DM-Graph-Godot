@@ -7,8 +7,11 @@ var edges : Array
 
 var selected_node = null
 
-func update_properties():
+func update_from_properties():
 	self.name = properties.name
+
+func update_to_properties():
+	properties.name = self.name
 
 func add_node_to_adjacency_matrix():
 	if properties.adjacencyMatrix.size() == 0:
@@ -140,7 +143,11 @@ func add_edge(
 	if receiver_idx == -1:
 		print('receiver not in graph!')
 		return
-		
+	
+	if sender_idx == receiver_idx:
+		print("no self-edges allowed")
+		return
+	
 	# check if the edge is already in the graph
 	if edges.find(edge) != -1:
 		print('edge already in graph!')

@@ -2,6 +2,7 @@ extends WindowDialog
 
 onready var nodeTypesPopup = get_parent().get_node("NodeTypes")
 onready var graphManager = get_parent().get_parent().get_parent().get_node("GraphManager")
+onready var uiManager = get_parent().get_parent().get_parent()
 onready var moveTool = get_parent().get_parent().get_parent().get_node("ToolManager").get_node("Tools/MoveTool")
 onready var toolBar = get_parent().get_parent().get_node("Toolbar")
 
@@ -24,9 +25,11 @@ func _on_PlaceButton_pressed():
 	newNode.properties.name = $VBoxContainer/NameLineEdit.text
 	newNode.properties.type = type
 	newNode.properties.position = Vector2(0, 0)
-	newNode.update_properties()
+	newNode.update_from_properties()
 	graphManager.selectedGraph.add_node(newNode)
 	graphManager.selectedGraph.select_node(newNode)
+	
+	uiManager.rebuild_ui()
 	
 	# activate move mode
 	toolBar._on_MoveButton_pressed()

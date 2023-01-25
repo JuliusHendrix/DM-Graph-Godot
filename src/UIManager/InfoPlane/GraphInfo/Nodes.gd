@@ -4,9 +4,9 @@ var entries : Array = []
 
 
 func add_entry(node):
-	var new_entry = $VBoxContainer/Entry.duplicate()
+	var new_entry = $ScrollContainer/VBoxContainer/Entry.duplicate()
 	entries.append(new_entry)
-	$VBoxContainer.add_child(new_entry)
+	$ScrollContainer/VBoxContainer.add_child(new_entry)
 	new_entry.setup(node)
 	new_entry.visible = true
 

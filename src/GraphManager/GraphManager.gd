@@ -10,11 +10,11 @@ var selectedGraph = null
 
 func _ready():
 	load_test_graph2()
-	save_graph(selectedGraph, "/home/julius/test_graph2")
+#	save_graph(selectedGraph, "/home/julius/test_graph2")
 #	load_graph("/home/julius/test_graph2")
 	
 	load_test_graph1()
-	save_graph(selectedGraph, "/home/julius/test_graph1")
+#	save_graph(selectedGraph, "/home/julius/test_graph1")
 #	load_graph("/home/julius/test_graph1")
 	
 
@@ -42,7 +42,7 @@ func create_node(type : Array):
 func create_node_with_properties(properties : NodePropertiesResource):
 	var newNode = create_node(properties.type)
 	newNode.properties = properties
-	newNode.update_properties()
+	newNode.update_from_properties()
 	return newNode
 
 func create_edge(type : Array):
@@ -93,6 +93,7 @@ func create_graph(type : Array):
 func create_graph_with_properties(properties : GraphPropertiesResource):
 	var newGraph = create_graph(properties.type)
 	newGraph.properties = properties
+	newGraph.update_from_properties()
 	return newGraph
 
 # make new graph and select it
@@ -111,7 +112,7 @@ func load_test_graph1():
 	testGraph.properties.name = "Test Graph 1"
 	testGraph.properties.type = ["Base"]
 	testGraph.properties.directed = false
-	testGraph.update_properties()
+	testGraph.update_from_properties()
 	
 	# add nodes + edges
 	var paradiseNode = create_node(["Base", "Place"])
@@ -119,7 +120,7 @@ func load_test_graph1():
 	paradiseNode.properties.name = "Paradise"
 	paradiseNode.properties.type = ["Base", "Place"]
 	paradiseNode.properties.position = Vector2(0, 0)
-	paradiseNode.update_properties()
+	paradiseNode.update_from_properties()
 	testGraph.add_node(paradiseNode)
 	
 	var adamNode = create_node(["Base", "Actor"])
@@ -127,7 +128,7 @@ func load_test_graph1():
 	adamNode.properties.name = "Adam"
 	adamNode.properties.type = ["Base", "Actor"]
 	adamNode.properties.position = Vector2(100, 100)
-	adamNode.update_properties()
+	adamNode.update_from_properties()
 	testGraph.add_node(adamNode)
 	
 	var adamParadiseEdge = create_edge(["Base"])
@@ -140,7 +141,7 @@ func load_test_graph1():
 	eveNode.properties.name = "Eve"
 	eveNode.properties.type = ["Base", "Actor"]
 	eveNode.properties.position = Vector2(100, -100)
-	eveNode.update_properties()
+	eveNode.update_from_properties()
 	testGraph.add_node(eveNode)
 	
 	var eveParadiseEdge = create_edge(["Base"])
@@ -164,14 +165,14 @@ func load_test_graph2():
 	testGraph.properties.name = "Test Graph 2"
 	testGraph.properties.type = ["Base"]
 	testGraph.properties.directed = false
-	testGraph.update_properties()
+	testGraph.update_from_properties()
 	
 	var rootNode = create_node(["Base", "Root"])
 	rootNode.properties = NodePropertiesResource.new()
 	rootNode.properties.name = "Root"
 	rootNode.properties.type = ["Base", "Root"]
 	rootNode.properties.position = Vector2(-100, 0)
-	rootNode.update_properties()
+	rootNode.update_from_properties()
 	testGraph.add_node(rootNode)
 	
 	var worldNode = create_node(["Base", "Place"])
@@ -179,7 +180,7 @@ func load_test_graph2():
 	worldNode.properties.name = "World"
 	worldNode.properties.type = ["Base", "Place"]
 	worldNode.properties.position = Vector2(-200, 0)
-	worldNode.update_properties()
+	worldNode.update_from_properties()
 	testGraph.add_node(worldNode)
 	
 	var rootWorldEdge = create_edge(["Base"])
@@ -225,6 +226,7 @@ func save_graph(graph, graphDirPath : String):
 	var nodePaths = []
 	for nodeIdx in graph.nodes.size():
 		var nodePath = nodeDirPath + str(nodeIdx) + ".tres"
+		graph.nodes[nodeIdx].update_to_properties()
 		ResourceSaver.save(nodePath, graph.nodes[nodeIdx].properties)
 		nodePaths.append(nodePath)
 	graph.properties.nodePaths = nodePaths
@@ -242,6 +244,8 @@ func save_graph(graph, graphDirPath : String):
 	
 	# save graph
 	var graphPath = graphDirPath + "graph.tres"
+	graph.update_to_properties()
+	print(graph.properties.name)
 	ResourceSaver.save(graphPath, graph.properties)
 
 func load_graph(graphDirPath : String):
@@ -255,12 +259,12 @@ func load_graph(graphDirPath : String):
 	# load graph
 	var graphPath = graphDirPath + "graph.tres"
 	var graphProperties = load(graphPath)
+	print(graphProperties.name)
 	var loadedGraph = create_graph_with_properties(graphProperties)
 
 	# load nodes
 	for nodePath in graphProperties.nodePaths:
 		var nodeProperties = load(nodePath)
-		print(nodeProperties.type)
 		var loadedNode = create_node_with_properties(nodeProperties)
 		loadedGraph.get_node("Nodes").add_child(loadedNode)
 		loadedGraph.nodes.append(loadedNode)
@@ -268,11 +272,50 @@ func load_graph(graphDirPath : String):
 	# load edges
 	for edgePath in graphProperties.edgePaths:
 		var edgeProperties = load(edgePath)
-		print(edgeProperties.type)
 		var loadedEdge = create_edge_with_properties(edgeProperties)
 		loadedGraph.get_node("Edges").add_child(loadedEdge)
 		loadedGraph.edges.append(loadedEdge)
 	
 	add_graph(loadedGraph)
 	loadedGraph.update()
+
+func save_project(projectDirPath : String):
+	# remove if directory already exists
+	var directory = Directory.new()
+	if projectDirPath[-1] != "/":
+		projectDirPath += "/"
+	if directory.dir_exists(projectDirPath):
+		directory.remove(projectDirPath)
+	directory.make_dir_recursive(projectDirPath)
 	
+	# save graphs
+	for graphName in graphs:
+		var graphDirPath = projectDirPath + graphName + "/"
+		save_graph(graphs[graphName], graphDirPath)
+
+func load_project(projectDirPath : String):
+	# remove if directory already exists
+	var directory = Directory.new()
+	if projectDirPath[-1] != "/":
+		projectDirPath += "/"
+	if not directory.dir_exists(projectDirPath):
+		print("Directory doesn't exist: ", projectDirPath)
+	directory.open(projectDirPath)
+	
+	# delete old graphs
+	var graphsToDelete = []
+	for graphName in graphs:
+		graphs[graphName].queue_free()
+	graphs = {}
+	
+	# loop through saved graphs
+	directory.list_dir_begin(true, true)
+	
+	var graphsLeft = true
+	while graphsLeft:
+		var graphName = directory.get_next()
+		
+		if graphName == "":
+			break
+		var graphDirPath = projectDirPath + graphName
+		load_graph(graphDirPath)
