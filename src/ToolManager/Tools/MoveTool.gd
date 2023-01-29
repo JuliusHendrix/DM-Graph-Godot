@@ -9,7 +9,7 @@ func move_node(event):
 	# track mouse clicking
 	if event.is_action_pressed("left_click"):
 		mouse_pressed = true
-		self.toolManager.select_node()
+		self.toolManager.select_hovered_node()
 	elif event.is_action_released("left_click"):
 		Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 		mouse_pressed = false

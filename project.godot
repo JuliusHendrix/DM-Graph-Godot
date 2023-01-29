@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/GraphManager/Types/Edges/Base.gd"
 }, {
+"base": "CanvasItem",
+"class": "BaseGraph",
+"language": "GDScript",
+"path": "res://src/GraphManager/Types/Graphs/Graph.gd"
+}, {
 "base": "Node2D",
 "class": "BaseNode",
 "language": "GDScript",
@@ -76,6 +81,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BaseEdge": "",
+"BaseGraph": "",
 "BaseNode": "",
 "BaseTool": "",
 "EdgePropertiesResource": "",

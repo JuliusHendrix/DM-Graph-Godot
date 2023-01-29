@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/GraphManager/Types/Edges/Base.gd" type="Script" id=1]
 [ext_resource path="res://images/person.png" type="Texture" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://resources/Edges/EdgeProperties.gd" type="Script" id=16]
 [ext_resource path="res://resources/Edges/edge_settings.tres" type="Resource" id=17]
 [ext_resource path="res://resources/Edges/edge_properties.tres" type="Resource" id=18]
+[ext_resource path="res://src/GraphManager/Types/Graphs/Weighted.gd" type="Script" id=19]
 
 [node name="GraphManager" type="Node2D"]
 script = ExtResource( 9 )
@@ -87,3 +88,8 @@ properties = ExtResource( 16 )
 
 [node name="Base" parent="Types/Graphs" instance=ExtResource( 8 )]
 visible = false
+
+[node name="Weighted" parent="Types/Graphs" instance=ExtResource( 8 )]
+visible = false
+script = ExtResource( 19 )
+properties = null

@@ -1,7 +1,7 @@
 extends WindowDialog
 
-onready var graphManager = get_parent().get_parent().get_parent().get_node("GraphManager")
-onready var uiManager = get_parent().get_parent().get_parent()
+onready var graphManager = get_node("/root/World/GraphManager")
+onready var uiManager = get_node("/root/World/UIManager")
 
 func _on_CancelButton_pressed():
 	self.hide()

@@ -10,14 +10,8 @@ var selectedGraph = null
 
 func _ready():
 	load_test_graph2()
-#	save_graph(selectedGraph, "/home/julius/test_graph2")
-#	load_graph("/home/julius/test_graph2")
-	
 	load_test_graph1()
-#	save_graph(selectedGraph, "/home/julius/test_graph1")
-#	load_graph("/home/julius/test_graph1")
 	
-
 func create_node(type : Array):
 	# find the node type template
 	var subDict = $Types.nodeTypes
@@ -286,6 +280,7 @@ func save_project(projectDirPath : String):
 		projectDirPath += "/"
 	if directory.dir_exists(projectDirPath):
 		directory.remove(projectDirPath)
+		print("remove: ", projectDirPath)
 	directory.make_dir_recursive(projectDirPath)
 	
 	# save graphs
@@ -319,3 +314,9 @@ func load_project(projectDirPath : String):
 			break
 		var graphDirPath = projectDirPath + graphName
 		load_graph(graphDirPath)
+
+func new_project():
+	for graphName in graphs:
+		graphs[graphName].queue_free()
+	graphs = {}
+	selectedGraph = null

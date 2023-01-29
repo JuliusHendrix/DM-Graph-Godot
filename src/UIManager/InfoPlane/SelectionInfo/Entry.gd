@@ -10,6 +10,3 @@ func setup(node):
 	$Type.text = node.properties.type[-1]
 	
 	self.node = node
-
-func _on_SelectButton_pressed():
-	requested = true

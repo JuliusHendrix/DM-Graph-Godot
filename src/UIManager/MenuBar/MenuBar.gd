@@ -1,8 +1,10 @@
 extends Panel
 
-onready var newNodeWindow = get_parent().get_node("PopupWindows/NewNode")
+onready var newGraphWindow = get_parent().get_node("PopupWindows/NewGraph")
 onready var saveWindow = get_parent().get_node("PopupWindows/SaveProject")
 onready var loadWindow = get_parent().get_node("PopupWindows/LoadProject")
+onready var graphManager = get_node("/root/World/GraphManager")
+onready var uiManager = get_node("/root/World/UIManager")
 
 func _ready():
 	# connect menu options
@@ -17,7 +19,7 @@ func graph_menu_handler(ID):
 		1: # switch graph
 			print("switch graph")
 		2: # add node
-			newNodeWindow.popup()
+			newGraphWindow.popup()
 
 func file_menu_handler(ID):
 	match ID:
@@ -25,3 +27,6 @@ func file_menu_handler(ID):
 			saveWindow.popup()
 		1: # load project
 			loadWindow.popup()
+		2: # new project
+			graphManager.new_project()
+			uiManager.deselect_graph()

@@ -1,9 +1,9 @@
 extends WindowDialog
 
 onready var nodeTypesPopup = get_parent().get_node("NodeTypes")
-onready var graphManager = get_parent().get_parent().get_parent().get_node("GraphManager")
-onready var uiManager = get_parent().get_parent().get_parent()
-onready var moveTool = get_parent().get_parent().get_parent().get_node("ToolManager").get_node("Tools/MoveTool")
+onready var graphManager = get_node("/root/World/GraphManager")
+onready var uiManager = get_node("/root/World/UIManager")
+onready var moveTool = get_node("/root/World/ToolManager").get_node("Tools/MoveTool")
 onready var toolBar = get_parent().get_parent().get_node("Toolbar")
 
 var type = ["Base"]

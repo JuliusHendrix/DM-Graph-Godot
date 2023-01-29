@@ -6,5 +6,6 @@ func _ready():
 	tools = {
 		"Select": $SelectTool,
 		"Move": $MoveTool,
-		"Connect": $ConnectTool
+		"Connect": $ConnectTool,
+		"Disconnect": $DisonnectTool
 	}

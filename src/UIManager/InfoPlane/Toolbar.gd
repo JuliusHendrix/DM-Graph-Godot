@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-onready var toolmanager : ToolManager = get_parent().get_parent().get_node("ToolManager")
+onready var toolmanager = get_node("/root/World/ToolManager")
 
 func depress_all_buttons():
 	for button in self.get_children():
@@ -24,3 +24,10 @@ func _on_ConnectButton_pressed():
 		$ConnectButton.pressed = true
 	else:
 		$ConnectButton.pressed = false
+
+func _on_DisconnectButton_pressed():
+	if toolmanager.set_tool("Disconnect"):
+		depress_all_buttons()
+		$DisconnectButton.pressed = true
+	else:
+		$DisconnectButton.pressed = false

@@ -1,11 +1,9 @@
 extends FileDialog
 
-onready var graphManager = get_parent().get_parent().get_parent().get_node("GraphManager")
-onready var uiManager = get_parent().get_parent().get_parent()
+onready var graphManager = get_node("/root/World/GraphManager")
+onready var uiManager = get_node("/root/World/UIManager")
 
 func _on_LoadProject_dir_selected(dir):
-	uiManager.uiPaused = true
 	graphManager.load_project(dir)
-	uiManager.select_graph(graphManager.selectedGraph)
-	uiManager.uiPaused = false
+	uiManager.display_graph(graphManager.selectedGraph)
 	

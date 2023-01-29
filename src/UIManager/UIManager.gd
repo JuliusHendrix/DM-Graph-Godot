@@ -2,20 +2,26 @@ extends Control
 
 class_name UIManager
 
+onready var graphManager = get_node("/root/World/GraphManager")
+
 var toolbar
-var uiPaused = false
 
 func _ready():
-	select_graph($GraphManager.selectedGraph)
 	$UI/Toolbar._on_SelectButton_pressed()
 
-func _process(_delta):
-	if not uiPaused:
-		$UI/InfoPlane.update()
-
-func select_graph(graph):
+func display_graph(graph):
 	$UI/InfoPlane/GraphInfo.display_graph_info(graph)
-	$UI/InfoPlane/SelectionInfo.graph = graph
+
+func display_node(node, graph):
+	$UI/InfoPlane/SelectionInfo.display_node_info(node, graph)
+	$UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/NodeWindow.select_entry_with_node(node)
+
+func deselect_node():
+	$UI/InfoPlane/SelectionInfo.clear_display()
+	$UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/NodeWindow.deselect_entries()
+
+func deselect_graph():
+	$UI/InfoPlane/GraphInfo.clear_display()
 
 func rebuild_ui():
-	$UI/InfoPlane/GraphInfo.display_graph_info($UI/InfoPlane/GraphInfo.graph)
+	$UI/InfoPlane/GraphInfo.display_graph_info(graphManager.selectedGraph)

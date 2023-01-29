@@ -1,4 +1,5 @@
 extends CanvasItem
+class_name BaseGraph
 
 export var properties : Resource
 
@@ -6,6 +7,12 @@ var nodes : Array
 var edges : Array
 
 var selected_node = null
+
+# class specific
+var edgeType
+
+func _init():
+	edgeType = ["Base"]
 
 func update_from_properties():
 	self.name = properties.name
@@ -33,6 +40,16 @@ func remove_node_from_adjacency_matrix(nodeIdx):
 	# remove from rows
 	for colIdx in range(properties.adjacencyMatrix.size()):
 		properties.adjacencyMatrix[colIdx].remove(nodeIdx)
+
+func remove_edge_from_adjacency_matrix(edgeIdx):
+	# remove from matrix
+	for colIdx in range(properties.adjacencyMatrix.size()):
+		for rowIdx in range(properties.adjacencyMatrix[colIdx].size()):
+			if properties.adjacencyMatrix[colIdx][rowIdx] == edgeIdx:
+				properties.adjacencyMatrix[colIdx][rowIdx] = -1
+			elif properties.adjacencyMatrix[colIdx][rowIdx] > edgeIdx:
+				properties.adjacencyMatrix[colIdx][rowIdx] -= 1
+				
 
 func add_edge_to_adjacency_matrix(
 	edge_idx : int,
@@ -71,6 +88,25 @@ func get_edges_from_to_node(node):
 				edges[properties.adjacencyMatrix[col_idx][nodeIdx]]
 			)
 	return receivingEdges
+
+func get_edge_between_nodes(sender, receiver):
+	# check both ways!
+	if not sender in nodes:
+		print("Node not in nodes: ", sender)
+	
+	if not receiver in nodes:
+		print("Node not in nodes: ", receiver)
+	
+	var senderIdx = nodes.find(sender)
+	var receiverIdx = nodes.find(receiver)
+	
+	if properties.adjacencyMatrix[senderIdx][receiverIdx] != -1:
+		return edges[properties.adjacencyMatrix[senderIdx][receiverIdx]]
+	if not properties.directed:
+		if properties.adjacencyMatrix[receiverIdx][senderIdx] != -1:
+			return edges[properties.adjacencyMatrix[receiverIdx][senderIdx]]
+	print("No edge found")
+	return null
 
 func get_node_senders(node):
 	var nodeIdx = nodes.find(node, 0)
@@ -167,6 +203,22 @@ func add_edge(
 	add_edge_to_adjacency_matrix(edge_idx, sender_idx, receiver_idx)
 	
 	$Edges.add_child(edge)
+
+func remove_edge(edge):
+	if not edge in edges:
+		print("Edge not in graph: ", edge)
+		return
+	
+	# remove from node list
+	var edgeIdx = edges.find(edge)
+	edges.remove(edgeIdx)
+	remove_edge_from_adjacency_matrix(edgeIdx)
+	edge.queue_free()
+	self.update()
+
+func remove_edge_between_nodes(sender, receiver):
+	var edge = get_edge_between_nodes(sender, receiver)
+	remove_edge(edge)
 
 func _draw():
 	draw_edges()

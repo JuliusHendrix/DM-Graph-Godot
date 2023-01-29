@@ -5,5 +5,5 @@ func _init():
 
 func select_node(event):
 	if event.is_action_pressed("left_click"):
-		self.toolManager.select_node()
+		self.toolManager.select_hovered_node()
 

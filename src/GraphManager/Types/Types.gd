@@ -20,5 +20,7 @@ func _ready():
 	}
 
 	graphTypes = {
-		"Base": [$Graphs/Base, null]
+		"Base": [$Graphs/Base, {
+			"Weighted": [$Graphs/Weighted, null]
+		}]
 	}

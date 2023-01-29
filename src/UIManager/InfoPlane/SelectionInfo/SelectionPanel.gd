@@ -1,6 +1,7 @@
 extends Panel
 
 onready var popupWindows = get_parent().get_parent().get_node("PopupWindows")
+onready var toolbar = get_parent().get_parent().get_node("Toolbar")
 
 var node = null
 var graph = null
@@ -13,6 +14,8 @@ func _ready():
 func display_node_info(node, graph):
 	if node == null:
 		return
+	
+	$Contents.visible = true
 
 	# set name
 	$Contents/HBoxContainer/VBoxContainer/Name.text = node.properties.name
@@ -21,9 +24,7 @@ func display_node_info(node, graph):
 	$Contents/HBoxContainer/VBoxContainer/Type.text = Utils.type_array_to_string(node.properties.type)
 	
 	# display connections
-	$Contents/TabContainer/Connections.clear_entries()
-	for neighbour in graph.get_node_neighbours(node):
-		$Contents/TabContainer/Connections.add_entry(neighbour)
+	$Contents/TabContainer/Connections/NodeWindow.show_nodes(graph.get_node_neighbours(node))
 	
 	# display notes
 	$Contents/TabContainer/Notes.text = node.properties.notes
@@ -31,22 +32,17 @@ func display_node_info(node, graph):
 	self.node = node
 	self.graph = graph
 
+func clear_display():
+	$Contents.visible = false
+	
 func save_notes(notes : String):
 	node.properties.notes = notes
-
-func update():
-	if graph != null:
-		var requested_node = $Contents/TabContainer/Connections.get_requested()
-		if requested_node != null:
-			graph.select_node(requested_node)
-		
-		if graph.selected_node == null:
-			self.selectedNode = null
-			self.visible = false
-		elif graph.selected_node != selectedNode:
-			self.visible = true
-			selectedNode = graph.selected_node
-			display_node_info(selectedNode, graph)
 		
 func _on_DeleteButton_pressed():
 	popupWindows.get_node("DeleteNode").popup()
+
+func _on_AddButton_pressed():
+	toolbar._on_ConnectButton_pressed()
+
+func _on_RemoveButton_pressed():
+	toolbar._on_DisconnectButton_pressed()

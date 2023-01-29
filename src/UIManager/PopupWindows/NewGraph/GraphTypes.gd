@@ -19,11 +19,7 @@ func make_tree():
 	$Tree.clear()
 	var root = $Tree.create_item()
 	$Tree.set_hide_root(true)
-	add_children(root, types.nodeTypes)
-
-
-func _on_NodeTypes_about_to_show():
-	make_tree()
+	add_children(root, types.graphTypes)
 
 func get_type_array(item : TreeItem):
 	var typeArray = []
@@ -34,7 +30,6 @@ func get_type_array(item : TreeItem):
 		typeArray.append(item.get_text(0))
 	return typeArray
 	
-
 func _on_Button_pressed():
 	if requester == null:
 		print("No requester to send the result to")
@@ -42,3 +37,7 @@ func _on_Button_pressed():
 	self.hide()
 	requester.process_nodetype(typeArray)
 	requester = null
+
+
+func _on_GraphTypes_about_to_show():
+	make_tree()

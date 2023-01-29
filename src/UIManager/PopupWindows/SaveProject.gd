@@ -1,6 +1,6 @@
 extends FileDialog
 
-onready var graphManager = get_parent().get_parent().get_parent().get_node("GraphManager")
+onready var graphManager = get_node("/root/World/GraphManager")
 
 func _on_SaveProject_file_selected(path):
 	graphManager.save_project(path)
