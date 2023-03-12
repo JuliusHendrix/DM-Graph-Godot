@@ -5,4 +5,6 @@
 [resource]
 script = ExtResource( 1 )
 type = [  ]
+weight = 0.0
+weightNames = [  ]
 weights = [  ]

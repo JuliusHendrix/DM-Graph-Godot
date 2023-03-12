@@ -9,7 +9,7 @@ var graphs = {}
 var selectedGraph = null
 
 func _ready():
-	load_test_graph2()
+#	load_test_graph2()
 	load_test_graph1()
 	
 func create_node(type : Array):
@@ -101,10 +101,10 @@ func add_graph(graph):
 func load_test_graph1():
 	print("load_test_graph1")
 	# make new graph
-	var testGraph = create_graph(["Base"])
+	var testGraph = create_graph(["Base", "Weighted"])
 	testGraph.properties = GraphPropertiesResource.new()
-	testGraph.properties.name = "Test Graph 1"
-	testGraph.properties.type = ["Base"]
+	testGraph.properties.name = "Test Weighted Graph"
+	testGraph.properties.type = ["Base", "Weighted"]
 	testGraph.properties.directed = false
 	testGraph.update_from_properties()
 	
@@ -125,9 +125,10 @@ func load_test_graph1():
 	adamNode.update_from_properties()
 	testGraph.add_node(adamNode)
 	
-	var adamParadiseEdge = create_edge(["Base"])
+	var adamParadiseEdge = create_edge(["Base", "Weighted"])
 	adamParadiseEdge.properties = EdgePropertiesResource.new()
-	adamParadiseEdge.properties.type = ["Base"]
+	adamParadiseEdge.properties.type = ["Base", "Weighted"]
+	adamParadiseEdge.properties.weight = 0.6
 	testGraph.add_edge(adamParadiseEdge, adamNode, paradiseNode)
 	
 	var eveNode = create_node(["Base", "Actor"])
@@ -138,15 +139,37 @@ func load_test_graph1():
 	eveNode.update_from_properties()
 	testGraph.add_node(eveNode)
 	
-	var eveParadiseEdge = create_edge(["Base"])
+	var eveParadiseEdge = create_edge(["Base", "Weighted"])
 	eveParadiseEdge.properties = EdgePropertiesResource.new()
-	eveParadiseEdge.properties.type = ["Base"]
+	eveParadiseEdge.properties.type = ["Base", "Weighted"]
+	eveParadiseEdge.properties.weight = 0.5
 	testGraph.add_edge(eveParadiseEdge, eveNode, paradiseNode)
 	
-	var eveAdamEdge = create_edge(["Base"])
+	var eveAdamEdge = create_edge(["Base", "Weighted"])
 	eveAdamEdge.properties = EdgePropertiesResource.new()
-	eveAdamEdge.properties.type = ["Base"]
+	eveAdamEdge.properties.type = ["Base", "Weighted"]
+	eveAdamEdge.properties.weight = 1.0
 	testGraph.add_edge(eveAdamEdge, eveNode, adamNode)
+	
+	var snakeNode = create_node(["Base", "Actor"])
+	snakeNode.properties = NodePropertiesResource.new()
+	snakeNode.properties.name = "Snake"
+	snakeNode.properties.type = ["Base", "Actor"]
+	snakeNode.properties.position = Vector2(200, 0)
+	snakeNode.update_from_properties()
+	testGraph.add_node(snakeNode)
+	
+	var snakeAdamEdge = create_edge(["Base", "Weighted"])
+	snakeAdamEdge.properties = EdgePropertiesResource.new()
+	snakeAdamEdge.properties.type = ["Base", "Weighted"]
+	snakeAdamEdge.properties.weight = -1.0
+	testGraph.add_edge(snakeAdamEdge, snakeNode, adamNode)
+	
+	var snakeEveEdge = create_edge(["Base", "Weighted"])
+	snakeEveEdge.properties = EdgePropertiesResource.new()
+	snakeEveEdge.properties.type = ["Base", "Weighted"]
+	snakeEveEdge.properties.weight = -0.5
+	testGraph.add_edge(snakeEveEdge, snakeNode, eveNode)
 	
 	add_graph(testGraph)
 	testGraph.update()
@@ -154,10 +177,10 @@ func load_test_graph1():
 
 func load_test_graph2():
 	# make new graph
-	var testGraph = create_graph(["Base"])
+	var testGraph = create_graph(["Base", "Weighted"])
 	testGraph.properties = GraphPropertiesResource.new()
-	testGraph.properties.name = "Test Graph 2"
-	testGraph.properties.type = ["Base"]
+	testGraph.properties.name = "Test Weighted Graph"
+	testGraph.properties.type = ["Base", "Weighted"]
 	testGraph.properties.directed = false
 	testGraph.update_from_properties()
 	
@@ -165,7 +188,7 @@ func load_test_graph2():
 	rootNode.properties = NodePropertiesResource.new()
 	rootNode.properties.name = "Root"
 	rootNode.properties.type = ["Base", "Root"]
-	rootNode.properties.position = Vector2(-100, 0)
+	rootNode.properties.position = Vector2(0, 0)
 	rootNode.update_from_properties()
 	testGraph.add_node(rootNode)
 	
@@ -173,13 +196,14 @@ func load_test_graph2():
 	worldNode.properties = NodePropertiesResource.new()
 	worldNode.properties.name = "World"
 	worldNode.properties.type = ["Base", "Place"]
-	worldNode.properties.position = Vector2(-200, 0)
+	worldNode.properties.position = Vector2(0, -100)
 	worldNode.update_from_properties()
 	testGraph.add_node(worldNode)
 	
-	var rootWorldEdge = create_edge(["Base"])
+	var rootWorldEdge = create_edge(["Base", "Weighted"])
 	rootWorldEdge.properties = EdgePropertiesResource.new()
-	rootWorldEdge.properties.type = ["Base"]
+	rootWorldEdge.properties.type = ["Base", "Weighted"]
+	rootWorldEdge.properties.weight = 0.0
 	testGraph.add_edge(rootWorldEdge, worldNode, rootNode)
 	
 	add_graph(testGraph)

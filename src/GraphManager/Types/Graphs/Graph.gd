@@ -67,7 +67,7 @@ func add_edge_to_adjacency_matrix(
 	
 	properties.adjacencyMatrix[col_idx][row_idx] = edge_idx
 
-func get_edges_from_from_node(node):
+func get_edges_from_node(node):
 	var nodeIdx = nodes.find(node, 0)
 	var sendingEdges = []
 	# find sending edges
@@ -78,7 +78,7 @@ func get_edges_from_from_node(node):
 			)
 	return sendingEdges
 
-func get_edges_from_to_node(node):
+func get_edges_to_node(node):
 	var nodeIdx = nodes.find(node, 0)
 	var receivingEdges = []
 	# find receivingEdges edges
@@ -283,8 +283,8 @@ func highlight_selected_node():
 	
 	# highlight connecting edges
 	dim_all_edges()
-	highlight_edges(get_edges_from_from_node(selected_node))
-	highlight_edges(get_edges_from_to_node(selected_node))
+	highlight_edges(get_edges_from_node(selected_node))
+	highlight_edges(get_edges_to_node(selected_node))
 
 func set_selected_node(node):
 	# check if node is in this graph

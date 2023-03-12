@@ -42,7 +42,6 @@ func move_selected_node_to_mouse():
 	if graphManager.selectedGraph != null:
 		graphManager.selectedGraph.move_selected_node_to_mouse()
 
-
 func add_edge_to_hovered_node():
 	var hoveredNode = graphManager.selectedGraph.get_hovered_node()
 	if hoveredNode == null:
