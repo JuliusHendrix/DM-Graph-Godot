@@ -2,7 +2,7 @@ extends Control
 
 class_name UIManager
 
-onready var graphManager = get_node("/root/World/GraphManager")
+@onready var graphManager = get_node("/root/World/GraphManager")
 
 var toolbar
 

@@ -1,30 +1,32 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://buq8u5sig3ukc"]
 
-[ext_resource path="res://src/ToolManager/Tools/BaseTool.gd" type="Script" id=1]
-[ext_resource path="res://src/ToolManager/Tools/SelectTool.gd" type="Script" id=2]
-[ext_resource path="res://src/ToolManager/ToolManager.gd" type="Script" id=3]
-[ext_resource path="res://src/ToolManager/Tools/MoveTool.gd" type="Script" id=4]
-[ext_resource path="res://src/ToolManager/Tools.gd" type="Script" id=5]
-[ext_resource path="res://src/ToolManager/Tools/ConnectTool.gd" type="Script" id=6]
-[ext_resource path="res://src/ToolManager/Tools/DisconnectTool.gd" type="Script" id=7]
+[ext_resource type="Script" path="res://src/ToolManager/Tools/BaseTool.gd" id="1"]
+[ext_resource type="Script" path="res://src/ToolManager/Tools/SelectTool.gd" id="2"]
+[ext_resource type="Script" path="res://src/ToolManager/ToolManager.gd" id="3"]
+[ext_resource type="Script" path="res://src/ToolManager/Tools/MoveTool.gd" id="4"]
+[ext_resource type="Script" path="res://src/ToolManager/Tools.gd" id="5"]
+[ext_resource type="Script" path="res://src/ToolManager/Tools/ConnectTool.gd" id="6"]
+[ext_resource type="Script" path="res://src/ToolManager/Tools/DisconnectTool.gd" id="7"]
 
 [node name="ToolManager" type="Control"]
-script = ExtResource( 3 )
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("3")
 
 [node name="Tools" type="Node2D" parent="."]
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="BaseTool" type="Node2D" parent="Tools"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="SelectTool" type="Node2D" parent="Tools"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="MoveTool" type="Node2D" parent="Tools"]
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="ConnectTool" type="Node2D" parent="Tools"]
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="DisonnectTool" type="Node2D" parent="Tools"]
-script = ExtResource( 7 )
+script = ExtResource("7")

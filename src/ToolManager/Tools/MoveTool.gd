@@ -3,7 +3,7 @@ extends BaseTool
 var mouse_pressed = false
 
 func _init():
-	self.eventLogicDict["move_node"] = funcref(self, "move_node")
+	self.eventLogicDict["move_node"] = move_node
 
 func move_node(event):
 	# track mouse clicking

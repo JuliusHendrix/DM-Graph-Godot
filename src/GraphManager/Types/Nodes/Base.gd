@@ -1,8 +1,8 @@
 extends Node2D
 class_name BaseNode
 
-export var settings : Resource
-export var properties : Resource
+@export var settings : Resource
+@export var properties : Resource
 
 func update_from_properties():
 	# name 
@@ -17,13 +17,13 @@ func update_to_properties():
 	properties.position = self.position
 
 func highlight():
-	$Sprite.modulate.a = settings.highlightedAlpha
+	$Sprite2D.modulate.a = settings.highlightedAlpha
 	$TemplateNode.light_on()
 
-func show():
-	$Sprite.modulate.a = settings.highlightedAlpha
+func display():
+	$Sprite2D.modulate.a = settings.highlightedAlpha
 	$TemplateNode.light_off()
 	
 func dim():
-	$Sprite.modulate.a = settings.dimmedAlpha
+	$Sprite2D.modulate.a = settings.dimmedAlpha
 	$TemplateNode.light_off()

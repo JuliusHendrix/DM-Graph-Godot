@@ -1,7 +1,7 @@
 extends Panel
 
-onready var popupWindows = get_parent().get_parent().get_node("PopupWindows")
-onready var selectionInfo = get_parent().get_node("SelectionInfo")
+@onready var popupWindows = get_parent().get_parent().get_node("PopupWindows")
+@onready var selectionInfo = get_parent().get_node("SelectionInfo")
 
 var graph = null
 
@@ -23,7 +23,7 @@ func clear_display():
 	$Contents.visible = false
 
 func _on_AddButton_pressed():
-	popupWindows.get_node("NewNode").popup()
+	popupWindows.get_node("NewNode").popup_centered()
 
 func _on_RemoveButton_pressed():
 	var node = $Contents/TabContainer/Nodes/NodeWindow.selectedEntry.node
@@ -31,7 +31,7 @@ func _on_RemoveButton_pressed():
 		return
 	self.graph.select_node(node)
 	selectionInfo.display_node_info(node, self.graph)
-	popupWindows.get_node("DeleteNode").popup()
+	popupWindows.get_node("DeleteNode").popup_centered()
 
 func _on_NodeWindow_node_selected(node):
 	print("select")

@@ -2,18 +2,18 @@ extends Control
 
 class_name ToolManager
 
-onready var graphManager = get_node("/root/World/GraphManager")
-onready var uiManager = get_node("/root/World/UIManager")
+@onready var graphManager = get_node("/root/World/GraphManager")
+@onready var uiManager = get_node("/root/World/UIManager")
 
 var activeTool
 
 func _unhandled_input(event):
-	print("input")
+#	print("input")
 	# use tool
 	if GlobalVariables.toolsEnabled:
-		print("toolsEnabled")
+#		print("toolsEnabled")
 		if activeTool != null:
-			print("activeTool")
+#			print("activeTool")
 			activeTool.process_event(event)
 
 func set_tool(toolName : String) -> bool:
@@ -55,7 +55,7 @@ func add_edge_to_hovered_node():
 	graphManager.selectedGraph.add_edge(
 		newEdge, graphManager.selectedGraph.selected_node, hoveredNode
 	)
-	graphManager.selectedGraph.update()
+	graphManager.selectedGraph.queue_redraw()
 	graphManager.selectedGraph.select_node(graphManager.selectedGraph.selected_node)
 	uiManager.display_node(graphManager.selectedGraph.selected_node, graphManager.selectedGraph)
 
@@ -69,7 +69,7 @@ func remove_edge_to_hovered_node():
 	graphManager.selectedGraph.remove_edge_between_nodes(
 		graphManager.selectedGraph.selected_node, hoveredNode
 	)
-	graphManager.selectedGraph.update()
+	graphManager.selectedGraph.queue_redraw()
 	graphManager.selectedGraph.select_node(graphManager.selectedGraph.selected_node)
 	uiManager.display_node(graphManager.selectedGraph.selected_node, graphManager.selectedGraph)
 	

@@ -1,6 +1,6 @@
-extends WindowDialog
+extends Window
 
-onready var types = get_node("/root/World/GraphManager/Types")
+@onready var types = get_node("/root/World/GraphManager/Types")
 var requester = null
 
 func _ready():
@@ -42,3 +42,7 @@ func _on_Button_pressed():
 	self.hide()
 	requester.process_nodetype(typeArray)
 	requester = null
+
+
+func _on_close_requested():
+	self.hide()

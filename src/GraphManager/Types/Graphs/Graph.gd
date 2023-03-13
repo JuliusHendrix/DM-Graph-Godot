@@ -1,7 +1,7 @@
 extends CanvasItem
 class_name BaseGraph
 
-export var properties : Resource
+@export var properties : Resource
 
 var nodes : Array
 var edges : Array
@@ -35,11 +35,11 @@ func add_node_to_adjacency_matrix():
 
 func remove_node_from_adjacency_matrix(nodeIdx):
 	# remove from columns
-	properties.adjacencyMatrix.remove(nodeIdx)
+	properties.adjacencyMatrix.remove_at(nodeIdx)
 	
 	# remove from rows
 	for colIdx in range(properties.adjacencyMatrix.size()):
-		properties.adjacencyMatrix[colIdx].remove(nodeIdx)
+		properties.adjacencyMatrix[colIdx].remove_at(nodeIdx)
 
 func remove_edge_from_adjacency_matrix(edgeIdx):
 	# remove from matrix
@@ -153,10 +153,10 @@ func remove_node(node):
 	
 	# remove from node list
 	var nodeIdx = nodes.find(node)
-	nodes.remove(nodeIdx)
+	nodes.remove_at(nodeIdx)
 	remove_node_from_adjacency_matrix(nodeIdx)
 	node.queue_free()
-	self.update()
+	self.queue_redraw()
 
 func remove_selected_node():
 	show_all_nodes()
@@ -209,12 +209,12 @@ func remove_edge(edge):
 		print("Edge not in graph: ", edge)
 		return
 	
-	# remove from node list
+	# remove from edge list
 	var edgeIdx = edges.find(edge)
-	edges.remove(edgeIdx)
+	edges.remove_at(edgeIdx)
 	remove_edge_from_adjacency_matrix(edgeIdx)
 	edge.queue_free()
-	self.update()
+	self.queue_redraw()
 
 func remove_edge_between_nodes(sender, receiver):
 	var edge = get_edge_between_nodes(sender, receiver)
@@ -239,7 +239,7 @@ func draw_edges():
 
 func show_all_edges():
 	for edge in edges:
-		edge.show()
+		edge.display()
 
 func dim_all_edges():
 	for edge in edges:
@@ -247,7 +247,7 @@ func dim_all_edges():
 
 func show_edges(shownEdges : Array):
 	for edge in shownEdges:
-		edge.show()
+		edge.display()
 
 func highlight_edges(highlightedEdges : Array):
 	for edge in highlightedEdges:
@@ -255,7 +255,7 @@ func highlight_edges(highlightedEdges : Array):
 	
 func show_all_nodes():
 	for node in nodes:
-		node.show()
+		node.display()
 
 func dim_all_nodes():
 	for node in nodes:
@@ -263,7 +263,7 @@ func dim_all_nodes():
 
 func show_nodes(shownNodes : Array):
 	for node in shownNodes:
-		node.show()
+		node.display()
 
 func highlight_nodes(highlightedNodes : Array):
 	for node in highlightedNodes:
@@ -297,12 +297,12 @@ func set_selected_node(node):
 func select_node(node):
 	set_selected_node(node)
 	highlight_selected_node()
-	self.update()
+	self.queue_redraw()
 
 func deselect_node():
 	self.selected_node = null
 	highlight_selected_node()
-	self.update()
+	self.queue_redraw()
 
 func get_hovered_node():
 	for node in nodes:
@@ -314,7 +314,7 @@ func move_selected_node(position : Vector2):
 	if selected_node == null:
 		return
 	selected_node.position = position
-	self.update()
+	self.queue_redraw()
 
 func move_selected_node_to_mouse():
 	move_selected_node(get_global_mouse_position())

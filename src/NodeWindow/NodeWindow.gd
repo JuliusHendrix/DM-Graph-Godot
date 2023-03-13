@@ -20,9 +20,9 @@ func add_entry(node):
 func select_entry(entryToSelect):
 	for entry in entries:
 		if entry == entryToSelect:
-			entry.pressed = true
+			entry.button_pressed = true
 		else:
-			entry.pressed = false
+			entry.button_pressed = false
 	
 	selectedEntry = entryToSelect
 	emit_signal("node_selected", entryToSelect.node)
@@ -30,14 +30,14 @@ func select_entry(entryToSelect):
 func select_entry_with_node(node):
 	for entry in entries:
 		if entry.node == node:
-			entry.pressed = true
+			entry.button_pressed = true
 			selectedEntry = entry
 		else:
-			entry.pressed = false
+			entry.button_pressed = false
 
 func deselect_entries():
 	for entry in entries:
-		entry.pressed = false
+		entry.button_pressed = false
 	selectedEntry = null
 
 func clear_entries():

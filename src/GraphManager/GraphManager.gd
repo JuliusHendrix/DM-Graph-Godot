@@ -172,7 +172,7 @@ func load_test_graph1():
 	testGraph.add_edge(snakeEveEdge, snakeNode, eveNode)
 	
 	add_graph(testGraph)
-	testGraph.update()
+	testGraph.queue_redraw()
 
 
 func load_test_graph2():
@@ -207,7 +207,7 @@ func load_test_graph2():
 	testGraph.add_edge(rootWorldEdge, worldNode, rootNode)
 	
 	add_graph(testGraph)
-	testGraph.update()
+	testGraph.queue_redraw()
 
 func show_all_graphs():
 	for graphName in graphs:
@@ -230,16 +230,16 @@ func hightlight_selected_graph():
 
 func save_graph(graph, graphDirPath : String):
 	# remove if directory already exists
-	var directory = Directory.new()
+#	var directory = DirAccess.new()
 	if graphDirPath[-1] != "/":
 		graphDirPath += "/"
-	if directory.dir_exists(graphDirPath):
-		directory.remove(graphDirPath)
-	directory.make_dir_recursive(graphDirPath)
+	if DirAccess.dir_exists_absolute(graphDirPath):
+		DirAccess.remove_absolute(graphDirPath)
+	DirAccess.make_dir_recursive_absolute(graphDirPath)
 	
 	# save nodes
 	var nodeDirPath = graphDirPath + "nodes/"
-	directory.make_dir(nodeDirPath)
+	DirAccess.make_dir_absolute(nodeDirPath)
 	
 	var nodePaths = []
 	for nodeIdx in graph.nodes.size():
@@ -251,7 +251,7 @@ func save_graph(graph, graphDirPath : String):
 	
 	# save edges
 	var edgeDirPath = graphDirPath + "edges/"
-	directory.make_dir(edgeDirPath)
+	DirAccess.make_dir_absolute(edgeDirPath)
 	
 	var edgePaths = []
 	for edgeIdx in graph.edges.size():
@@ -267,10 +267,10 @@ func save_graph(graph, graphDirPath : String):
 	ResourceSaver.save(graphPath, graph.properties)
 
 func load_graph(graphDirPath : String):
-	var directory = Directory.new()
+#	var directory = Directory.new()
 	if graphDirPath[-1] != "/":
 		graphDirPath += "/"
-	if not directory.dir_exists(graphDirPath):
+	if not DirAccess.dir_exists_absolute(graphDirPath):
 		print("Not a directory: ", graphDirPath)
 		return
 	
@@ -295,17 +295,17 @@ func load_graph(graphDirPath : String):
 		loadedGraph.edges.append(loadedEdge)
 	
 	add_graph(loadedGraph)
-	loadedGraph.update()
+	loadedGraph.queue_redraw()
 
 func save_project(projectDirPath : String):
 	# remove if directory already exists
-	var directory = Directory.new()
+#	var directory = Directory.new()
 	if projectDirPath[-1] != "/":
 		projectDirPath += "/"
-	if directory.dir_exists(projectDirPath):
-		directory.remove(projectDirPath)
+	if DirAccess.dir_exists_absolute(projectDirPath):
+		DirAccess.remove_absolute(projectDirPath)
 		print("remove: ", projectDirPath)
-	directory.make_dir_recursive(projectDirPath)
+	DirAccess.make_dir_recursive_absolute(projectDirPath)
 	
 	# save graphs
 	for graphName in graphs:
@@ -314,12 +314,12 @@ func save_project(projectDirPath : String):
 
 func load_project(projectDirPath : String):
 	# remove if directory already exists
-	var directory = Directory.new()
+#	var directory = Directory.new()
 	if projectDirPath[-1] != "/":
 		projectDirPath += "/"
-	if not directory.dir_exists(projectDirPath):
+	if not DirAccess.dir_exists_absolute(projectDirPath):
 		print("Directory doesn't exist: ", projectDirPath)
-	directory.open(projectDirPath)
+	var directory = DirAccess.open(projectDirPath)
 	
 	# delete old graphs
 	var graphsToDelete = []
@@ -328,7 +328,7 @@ func load_project(projectDirPath : String):
 	graphs = {}
 	
 	# loop through saved graphs
-	directory.list_dir_begin(true, true)
+	directory.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	
 	var graphsLeft = true
 	while graphsLeft:

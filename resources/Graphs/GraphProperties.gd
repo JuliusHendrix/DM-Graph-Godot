@@ -1,12 +1,12 @@
 extends Resource
 class_name GraphPropertiesResource
 
-export(String) var name = "Name"
-export(Array, String) var type
-export var directed : bool = false
-export(Array) var adjacencyMatrix
+@export var name: String = "Name"
+@export var type: Array # (Array, String)
+@export var directed : bool = false
+@export var adjacencyMatrix: Array
 
 # for saving
-export(Array, String) var nodePaths
-export(Array, String) var edgePaths
+@export var nodePaths: Array # (Array, String)
+@export var edgePaths: Array # (Array, String)
 

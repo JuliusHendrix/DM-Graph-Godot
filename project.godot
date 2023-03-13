@@ -6,100 +6,13 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "Node2D",
-"class": "BaseEdge",
-"language": "GDScript",
-"path": "res://src/GraphManager/Types/Edges/Base.gd"
-}, {
-"base": "CanvasItem",
-"class": "BaseGraph",
-"language": "GDScript",
-"path": "res://src/GraphManager/Types/Graphs/Graph.gd"
-}, {
-"base": "Node2D",
-"class": "BaseNode",
-"language": "GDScript",
-"path": "res://src/GraphManager/Types/Nodes/Base.gd"
-}, {
-"base": "Node2D",
-"class": "BaseTool",
-"language": "GDScript",
-"path": "res://src/ToolManager/Tools/BaseTool.gd"
-}, {
-"base": "Resource",
-"class": "EdgePropertiesResource",
-"language": "GDScript",
-"path": "res://resources/Edges/EdgeProperties.gd"
-}, {
-"base": "Resource",
-"class": "EdgeSettingsResource",
-"language": "GDScript",
-"path": "res://resources/Edges/EdgeSettings.gd"
-}, {
-"base": "Node2D",
-"class": "GraphManager",
-"language": "GDScript",
-"path": "res://src/GraphManager/GraphManager.gd"
-}, {
-"base": "Resource",
-"class": "GraphPropertiesResource",
-"language": "GDScript",
-"path": "res://resources/Graphs/GraphProperties.gd"
-}, {
-"base": "Resource",
-"class": "NodePropertiesResource",
-"language": "GDScript",
-"path": "res://resources/Nodes/NodeProperties.gd"
-}, {
-"base": "Resource",
-"class": "NodeSettingsResource",
-"language": "GDScript",
-"path": "res://resources/Nodes/NodeSettings.gd"
-}, {
-"base": "Resource",
-"class": "SettingsResource",
-"language": "GDScript",
-"path": "res://resources/Settings/Settings.gd"
-}, {
-"base": "Control",
-"class": "ToolManager",
-"language": "GDScript",
-"path": "res://src/ToolManager/ToolManager.gd"
-}, {
-"base": "Control",
-"class": "UIManager",
-"language": "GDScript",
-"path": "res://src/UIManager/UIManager.gd"
-}, {
-"base": "Resource",
-"class": "UserSettingsResource",
-"language": "GDScript",
-"path": "res://resources/UserSettings/UserSettings.gd"
-} ]
-_global_script_class_icons={
-"BaseEdge": "",
-"BaseGraph": "",
-"BaseNode": "",
-"BaseTool": "",
-"EdgePropertiesResource": "",
-"EdgeSettingsResource": "",
-"GraphManager": "",
-"GraphPropertiesResource": "",
-"NodePropertiesResource": "",
-"NodeSettingsResource": "",
-"SettingsResource": "",
-"ToolManager": "",
-"UIManager": "",
-"UserSettingsResource": ""
-}
+config_version=5
 
 [application]
 
 config/name="DM Graph"
 run/main_scene="res://scenes/World.tscn"
+config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 
 [autoload]
@@ -109,8 +22,8 @@ Utils="*res://src/Utils.gd"
 
 [display]
 
-window/size/width=1920
-window/size/height=1080
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [gui]
 
@@ -120,43 +33,43 @@ common/drop_mouse_on_gui_input_disabled=true
 
 zoom_in={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":4,"pressed":false,"double_click":false,"script":null)
+]
 }
 zoom_out={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":5,"pressed":false,"double_click":false,"script":null)
+]
 }
 pan_left={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":65,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":65,"physical_keycode":0,"key_label":0,"unicode":97,"echo":false,"script":null)
+]
 }
 pan_right={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":68,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":68,"physical_keycode":0,"key_label":0,"unicode":100,"echo":false,"script":null)
+]
 }
 pan_up={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":87,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":87,"physical_keycode":0,"key_label":0,"unicode":119,"echo":false,"script":null)
+]
 }
 pan_down={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":83,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":83,"physical_keycode":0,"key_label":0,"unicode":115,"echo":false,"script":null)
+]
 }
 left_click={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":false,"double_click":false,"script":null)
+]
 }
 right_click={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
- ]
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"pressed":false,"double_click":false,"script":null)
+]
 }
 
 [physics]
@@ -165,5 +78,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/default_clear_color=Color( 0.709804, 0.709804, 0.709804, 1 )
-environment/default_environment="res://default_env.tres"
+environment/defaults/default_clear_color=Color(0.709804, 0.709804, 0.709804, 1)
+environment/defaults/default_environment="res://default_env.tres"

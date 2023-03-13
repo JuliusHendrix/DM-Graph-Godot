@@ -1,7 +1,7 @@
 extends Button
 
 var node = null
-onready var nodeWindow = get_parent().get_parent().get_parent()
+@onready var nodeWindow = get_parent().get_parent().get_parent()
 
 func setup(node):
 	$Name.text = node.properties.name

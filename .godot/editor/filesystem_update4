@@ -1,0 +1,17 @@
+res://src/UIManager/PopupWindows/NewNode/NewNode.gd
+res://default_env.tres
+res://scenes/UIManager.tscn
+res://src/UIManager/PopupWindows/NodeTypes/NodeTypes.gd
+res://src/UIManager/PopupWindows/DeleteNode.gd
+res://src/UIManager/InfoPlane/GraphInfo/GraphInfo.gd
+res://src/UIManager/PopupWindows/SaveProject.gd
+res://src/UIManager/PopupWindows/LoadProject.gd
+res://src/UIManager/PopupWindows/NewGraph/NewGraph.gd
+res://src/UIManager/PopupWindows/NewGraph/GraphTypes.gd
+res://scenes/World.tscn
+res://scenes/GraphManager.tscn
+res://scenes/NodeWindow.tscn
+res://scenes/Camera2D.tscn
+res://scenes/ToolManager.tscn
+res://scenes/TemplateNode.tscn
+res://src/GraphManager/Types/Graphs/Graph.gd

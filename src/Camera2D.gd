@@ -1,38 +1,34 @@
 extends Camera2D
 
 # Lower cap for the `_zoom_level`.
-export var min_zoom := 0.5
+@export var min_zoom := 0.5
 # Upper cap for the `_zoom_level`.
-export var max_zoom := 2.0
+@export var max_zoom := 2.0
 # Controls how much we increase or decrease the `_zoom_level` on every turn of the scroll wheel.
-export var zoom_factor := 0.1
+@export var zoom_factor := 0.1
 # Duration of the zoom's tween animation.
-export var zoom_duration := 0.2
+@export var zoom_duration := 0.2
 
-export var pan_speed := 15
+@export var pan_speed := 15
 
 # The camera's target zoom level.
-var _zoom_level := 1.0 setget _set_zoom_level
+var _zoom_level := 1.0 : set = _set_zoom_level
 
 # We store a reference to the scene's tween node.
-onready var tween: Tween = $Tween
+#@onready var tween := get_tree().create_tween()
 
 func _set_zoom_level(value: float) -> void:
 	# We limit the value between `min_zoom` and `max_zoom`
 	_zoom_level = clamp(value, min_zoom, max_zoom)
 	# Then, we ask the tween node to animate the camera's `zoom` property from its current value
 	# to the target zoom level.
-	tween.interpolate_property(
+	
+	var tween := get_tree().create_tween()
+	tween.tween_property(
 		self,
 		"zoom",
-		zoom,
 		Vector2(_zoom_level, _zoom_level),
-		zoom_duration,
-		tween.TRANS_SINE,
-		# Easing out means we start fast and slow down as we reach the target value.
-		tween.EASE_OUT
-	)
-	tween.start()
+		zoom_duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func _unhandled_input(event):
 	if GlobalVariables.cameraMovementEnabled:

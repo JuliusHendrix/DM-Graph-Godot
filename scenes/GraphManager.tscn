@@ -1,100 +1,100 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=21 format=3 uid="uid://dnqk07g2t636l"]
 
-[ext_resource path="res://src/GraphManager/Types/Edges/Base.gd" type="Script" id=1]
-[ext_resource path="res://images/person.png" type="Texture" id=2]
-[ext_resource path="res://src/GraphManager/Types/Nodes/Place.gd" type="Script" id=3]
-[ext_resource path="res://scenes/TemplateNode.tscn" type="PackedScene" id=4]
-[ext_resource path="res://images/place.png" type="Texture" id=5]
-[ext_resource path="res://src/GraphManager/Types/Nodes/Actor.gd" type="Script" id=6]
-[ext_resource path="res://src/GraphManager/Types/Edges/Weighted.gd" type="Script" id=7]
-[ext_resource path="res://scenes/Graph.tscn" type="PackedScene" id=8]
-[ext_resource path="res://src/GraphManager/GraphManager.gd" type="Script" id=9]
-[ext_resource path="res://images/root.png" type="Texture" id=10]
-[ext_resource path="res://src/GraphManager/Types/Nodes/Root.gd" type="Script" id=11]
-[ext_resource path="res://src/GraphManager/Types/Nodes/Base.gd" type="Script" id=12]
-[ext_resource path="res://images/blank.png" type="Texture" id=13]
-[ext_resource path="res://src/GraphManager/Types/Types.gd" type="Script" id=14]
-[ext_resource path="res://resources/Edges/EdgeSettings.gd" type="Script" id=15]
-[ext_resource path="res://resources/Edges/EdgeProperties.gd" type="Script" id=16]
-[ext_resource path="res://resources/Edges/edge_settings.tres" type="Resource" id=17]
-[ext_resource path="res://resources/Edges/edge_properties.tres" type="Resource" id=18]
-[ext_resource path="res://src/GraphManager/Types/Graphs/Weighted.gd" type="Script" id=19]
-[ext_resource path="res://src/GraphManager/Types/Edges/MultipleWeighted.gd" type="Script" id=20]
+[ext_resource type="Script" path="res://src/GraphManager/Types/Edges/Base.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://d1t62neg6vv3k" path="res://images/person.png" id="2"]
+[ext_resource type="Script" path="res://src/GraphManager/Types/Nodes/Place.gd" id="3"]
+[ext_resource type="PackedScene" uid="uid://170r7ggxsapx" path="res://scenes/TemplateNode.tscn" id="4"]
+[ext_resource type="Texture2D" uid="uid://clu8cdfb33qr3" path="res://images/place.png" id="5"]
+[ext_resource type="Script" path="res://src/GraphManager/Types/Nodes/Actor.gd" id="6"]
+[ext_resource type="Script" path="res://src/GraphManager/Types/Edges/Weighted.gd" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/Graph.tscn" id="8"]
+[ext_resource type="Script" path="res://src/GraphManager/GraphManager.gd" id="9"]
+[ext_resource type="Texture2D" uid="uid://bqjdufglmguqu" path="res://images/root.png" id="10"]
+[ext_resource type="Script" path="res://src/GraphManager/Types/Nodes/Root.gd" id="11"]
+[ext_resource type="Script" path="res://src/GraphManager/Types/Nodes/Base.gd" id="12"]
+[ext_resource type="Texture2D" uid="uid://c7blar62lv0lb" path="res://images/blank.png" id="13"]
+[ext_resource type="Script" path="res://src/GraphManager/Types/Types.gd" id="14"]
+[ext_resource type="Script" path="res://resources/Edges/EdgeSettings.gd" id="15"]
+[ext_resource type="Script" path="res://resources/Edges/EdgeProperties.gd" id="16"]
+[ext_resource type="Resource" path="res://resources/Edges/edge_settings.tres" id="17"]
+[ext_resource type="Resource" path="res://resources/Edges/edge_properties.tres" id="18"]
+[ext_resource type="Script" path="res://src/GraphManager/Types/Graphs/Weighted.gd" id="19"]
+[ext_resource type="Script" path="res://src/GraphManager/Types/Edges/MultipleWeighted.gd" id="20"]
 
 [node name="GraphManager" type="Node2D"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="Graphs" type="Node2D" parent="."]
 
 [node name="Types" type="Node2D" parent="."]
-script = ExtResource( 14 )
+script = ExtResource("14")
 
 [node name="Nodes" type="Node2D" parent="Types"]
 
 [node name="Base" type="Node2D" parent="Types/Nodes"]
 visible = false
-script = ExtResource( 12 )
+script = ExtResource("12")
 
-[node name="TemplateNode" parent="Types/Nodes/Base" instance=ExtResource( 4 )]
+[node name="TemplateNode" parent="Types/Nodes/Base" instance=ExtResource("4")]
 
-[node name="Sprite" type="Sprite" parent="Types/Nodes/Base"]
-scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 13 )
+[node name="Sprite2D" type="Sprite2D" parent="Types/Nodes/Base"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("13")
 
 [node name="Place" type="Node2D" parent="Types/Nodes"]
 visible = false
-script = ExtResource( 3 )
+script = ExtResource("3")
 
-[node name="TemplateNode" parent="Types/Nodes/Place" instance=ExtResource( 4 )]
+[node name="TemplateNode" parent="Types/Nodes/Place" instance=ExtResource("4")]
 
-[node name="Sprite" type="Sprite" parent="Types/Nodes/Place"]
-scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 5 )
+[node name="Sprite2D" type="Sprite2D" parent="Types/Nodes/Place"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5")
 
 [node name="Actor" type="Node2D" parent="Types/Nodes"]
 visible = false
-script = ExtResource( 6 )
+script = ExtResource("6")
 
-[node name="TemplateNode" parent="Types/Nodes/Actor" instance=ExtResource( 4 )]
+[node name="TemplateNode" parent="Types/Nodes/Actor" instance=ExtResource("4")]
 
-[node name="Sprite" type="Sprite" parent="Types/Nodes/Actor"]
-scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 2 )
+[node name="Sprite2D" type="Sprite2D" parent="Types/Nodes/Actor"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2")
 
 [node name="Root" type="Node2D" parent="Types/Nodes"]
 visible = false
-script = ExtResource( 11 )
+script = ExtResource("11")
 
-[node name="TemplateNode" parent="Types/Nodes/Root" instance=ExtResource( 4 )]
+[node name="TemplateNode" parent="Types/Nodes/Root" instance=ExtResource("4")]
 
-[node name="Sprite" type="Sprite" parent="Types/Nodes/Root"]
-scale = Vector2( 0.1, 0.1 )
-texture = ExtResource( 10 )
+[node name="Sprite2D" type="Sprite2D" parent="Types/Nodes/Root"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10")
 
 [node name="Edges" type="Node2D" parent="Types"]
 
 [node name="Base" type="Node2D" parent="Types/Edges"]
 visible = false
-script = ExtResource( 1 )
-settings = ExtResource( 17 )
-properties = ExtResource( 18 )
+script = ExtResource("1")
+settings = ExtResource("17")
+properties = ExtResource("18")
 
 [node name="Weighted" type="Node2D" parent="Types/Edges"]
 visible = false
-script = ExtResource( 7 )
-settings = ExtResource( 15 )
-properties = ExtResource( 16 )
+script = ExtResource("7")
+settings = ExtResource("15")
+properties = ExtResource("16")
 
 [node name="MultipleWeighted" type="Node2D" parent="Types/Edges"]
 visible = false
-script = ExtResource( 20 )
+script = ExtResource("20")
 
 [node name="Graphs" type="Node2D" parent="Types"]
 
-[node name="Base" parent="Types/Graphs" instance=ExtResource( 8 )]
+[node name="Base" parent="Types/Graphs" instance=ExtResource("8")]
 visible = false
 
-[node name="Weighted" parent="Types/Graphs" instance=ExtResource( 8 )]
+[node name="Weighted" parent="Types/Graphs" instance=ExtResource("8")]
 visible = false
-script = ExtResource( 19 )
+script = ExtResource("19")
 properties = null

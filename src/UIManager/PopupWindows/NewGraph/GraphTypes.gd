@@ -1,6 +1,6 @@
-extends WindowDialog
+extends Window
 
-onready var types = get_node("/root/World/GraphManager/Types")
+@onready var types = get_node("/root/World/GraphManager/Types")
 var requester = null
 
 func _ready():
@@ -41,3 +41,6 @@ func _on_Button_pressed():
 
 func _on_GraphTypes_about_to_show():
 	make_tree()
+
+func _on_close_requested():
+	self.hide()

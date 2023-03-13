@@ -1,10 +1,10 @@
 extends Resource
 class_name EdgePropertiesResource
 
-export(Array, String) var type
+@export var type: Array # (Array, String)
 
 # weight or weights will be used depending on the type
-export(float) var weight
+@export var weight: float
 
-export(Array, String) var weightNames
-export(Array, float) var weights
+@export var weightNames: Array # (Array, String)
+@export var weights: Array # (Array, float)

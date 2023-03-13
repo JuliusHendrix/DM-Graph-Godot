@@ -1,8 +1,8 @@
-extends WindowDialog
+extends Window
 
-onready var graphTypesPopup = get_parent().get_node("GraphTypes")
-onready var graphManager = get_node("/root/World/GraphManager")
-onready var uiManager = get_node("/root/World/UIManager")
+@onready var graphTypesPopup = get_parent().get_node("GraphTypes")
+@onready var graphManager = get_node("/root/World/GraphManager")
+@onready var uiManager = get_node("/root/World/UIManager")
 
 var type = ["Base"]
 
@@ -27,4 +27,8 @@ func _on_PlaceButton_pressed():
 	
 	uiManager.rebuild_ui()
 	
+	self.hide()
+
+
+func _on_close_requested():
 	self.hide()

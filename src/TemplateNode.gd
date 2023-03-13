@@ -1,6 +1,6 @@
 extends Node2D
 
-export var nodeSettings : Resource
+@export var nodeSettings : Resource
 
 var mouseOver = false
 
@@ -16,7 +16,7 @@ func set_label_name(name : String):
 	$Information/LabelName.text = name
 
 func light_on():
-	$Visual/Sprite.modulate = nodeSettings.lightOnColor
+	$Visual/Sprite2D.modulate = nodeSettings.lightOnColor
 
 func light_off():
-	$Visual/Sprite.modulate = nodeSettings.lightOffColor
+	$Visual/Sprite2D.modulate = nodeSettings.lightOffColor

@@ -1,588 +1,512 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=18 format=3 uid="uid://o2klsdbtjuxd"]
 
-[ext_resource path="res://src/UIManager/UIManager.gd" type="Script" id=1]
-[ext_resource path="res://src/UIManager/InfoPlane/SelectionInfo/Notes.gd" type="Script" id=2]
-[ext_resource path="res://src/UIManager/InfoPlane/SelectionInfo/SelectionPanel.gd" type="Script" id=3]
-[ext_resource path="res://src/UIManager/InfoPlane/SelectionInfo/Connections.gd" type="Script" id=4]
-[ext_resource path="res://src/UIManager/InfoPlane/InfoPlane.gd" type="Script" id=5]
-[ext_resource path="res://src/UIManager/InfoPlane/GraphInfo/GraphInfo.gd" type="Script" id=6]
-[ext_resource path="res://scenes/NodeWindow.tscn" type="PackedScene" id=7]
-[ext_resource path="res://src/UIManager/PopupWindows/NewGraph/NewGraph.gd" type="Script" id=8]
-[ext_resource path="res://src/UIManager/PopupWindows/NewGraph/GraphTypes.gd" type="Script" id=9]
-[ext_resource path="res://src/UIManager/InfoPlane/Toolbar.gd" type="Script" id=10]
-[ext_resource path="res://src/UIManager/MenuBar/MenuBar.gd" type="Script" id=13]
-[ext_resource path="res://src/UIManager/PopupWindows/NewNode/NameLineEdit.gd" type="Script" id=14]
-[ext_resource path="res://src/UIManager/PopupWindows/NewNode/NewNode.gd" type="Script" id=15]
-[ext_resource path="res://src/UIManager/PopupWindows/NodeTypes/NodeTypes.gd" type="Script" id=16]
-[ext_resource path="res://src/UIManager/PopupWindows/DeleteNode.gd" type="Script" id=17]
-[ext_resource path="res://src/UIManager/PopupWindows/SaveProject.gd" type="Script" id=18]
-[ext_resource path="res://src/UIManager/PopupWindows/LoadProject.gd" type="Script" id=19]
+[ext_resource type="Script" path="res://src/UIManager/UIManager.gd" id="1"]
+[ext_resource type="Script" path="res://src/UIManager/InfoPlane/SelectionInfo/Notes.gd" id="2"]
+[ext_resource type="Script" path="res://src/UIManager/InfoPlane/SelectionInfo/SelectionPanel.gd" id="3"]
+[ext_resource type="Script" path="res://src/UIManager/InfoPlane/SelectionInfo/Connections.gd" id="4"]
+[ext_resource type="Script" path="res://src/UIManager/InfoPlane/InfoPlane.gd" id="5"]
+[ext_resource type="Script" path="res://src/UIManager/InfoPlane/GraphInfo/GraphInfo.gd" id="6"]
+[ext_resource type="PackedScene" uid="uid://ccygpfv8vv2lq" path="res://scenes/NodeWindow.tscn" id="7"]
+[ext_resource type="Script" path="res://src/UIManager/PopupWindows/NewGraph/NewGraph.gd" id="8"]
+[ext_resource type="Script" path="res://src/UIManager/PopupWindows/NewGraph/GraphTypes.gd" id="9"]
+[ext_resource type="Script" path="res://src/UIManager/InfoPlane/Toolbar.gd" id="10"]
+[ext_resource type="Script" path="res://src/UIManager/MenuBar/MenuBar.gd" id="13"]
+[ext_resource type="Script" path="res://src/UIManager/PopupWindows/NewNode/NameLineEdit.gd" id="14"]
+[ext_resource type="Script" path="res://src/UIManager/PopupWindows/NewNode/NewNode.gd" id="15"]
+[ext_resource type="Script" path="res://src/UIManager/PopupWindows/NodeTypes/NodeTypes.gd" id="16"]
+[ext_resource type="Script" path="res://src/UIManager/PopupWindows/DeleteNode.gd" id="17"]
+[ext_resource type="Script" path="res://src/UIManager/PopupWindows/SaveProject.gd" id="18"]
+[ext_resource type="Script" path="res://src/UIManager/PopupWindows/LoadProject.gd" id="19"]
 
 [node name="UIManager" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="MenuBar" type="Panel" parent="UI"]
+anchors_preset = 10
 anchor_right = 1.0
-margin_bottom = 30.0
-script = ExtResource( 13 )
+offset_bottom = 30.0
+script = ExtResource("13")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuBar"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
+offset_left = 10.0
 
 [node name="File" type="MenuButton" parent="UI/MenuBar/HBoxContainer"]
-margin_right = 35.0
-margin_bottom = 30.0
+layout_mode = 2
 text = "File"
-items = [ "Save Project", null, 0, false, false, 0, 0, null, "", false, "Load Project", null, 0, false, false, 1, 0, null, "", false, "New Project", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="Graph" type="MenuButton" parent="UI/MenuBar/HBoxContainer"]
-margin_left = 39.0
-margin_right = 89.0
-margin_bottom = 30.0
+layout_mode = 2
 text = "Graph"
-items = [ "Switch Graph", null, 0, false, false, 1, 0, null, "", false, "New Graph", null, 0, false, false, 2, 0, null, "", false ]
 
 [node name="Toolbar" type="HBoxContainer" parent="UI"]
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = -40.0
-margin_bottom = -10.0
-script = ExtResource( 10 )
+offset_left = 10.0
+offset_top = -40.0
+offset_bottom = -10.0
+script = ExtResource("10")
 
 [node name="SelectButton" type="Button" parent="UI/Toolbar"]
-margin_right = 51.0
-margin_bottom = 30.0
+layout_mode = 2
 toggle_mode = true
 text = "Select"
-icon_align = 1
+icon_alignment = 1
 
 [node name="MoveButton" type="Button" parent="UI/Toolbar"]
-margin_left = 55.0
-margin_right = 102.0
-margin_bottom = 30.0
+layout_mode = 2
 toggle_mode = true
 text = "Move"
 
 [node name="ConnectButton" type="Button" parent="UI/Toolbar"]
-margin_left = 106.0
-margin_right = 170.0
-margin_bottom = 30.0
+layout_mode = 2
 toggle_mode = true
 text = "Connect"
 
 [node name="DisconnectButton" type="Button" parent="UI/Toolbar"]
-margin_left = 174.0
-margin_right = 258.0
-margin_bottom = 30.0
+layout_mode = 2
 toggle_mode = true
 text = "Disconnect"
 
 [node name="InfoPlane" type="Control" parent="UI"]
+layout_mode = 3
 anchor_left = 0.8
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 38.0
+offset_left = 38.0
 mouse_filter = 1
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="BackgroundPanel" type="Panel" parent="UI/InfoPlane"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="GraphInfo" type="Panel" parent="UI/InfoPlane"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 0.5
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="HeaderPanel" type="Panel" parent="UI/InfoPlane/GraphInfo"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 0
 anchor_right = 1.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
+offset_bottom = 30.0
 
 [node name="ColorRect" type="ColorRect" parent="UI/InfoPlane/GraphInfo/HeaderPanel"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0.494118, 0.654902, 1 )
+color = Color(0, 0.494118, 0.654902, 1)
 
 [node name="HeaderLabel" type="Label" parent="UI/InfoPlane/GraphInfo/HeaderPanel"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Graph Information"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Contents" type="VBoxContainer" parent="UI/InfoPlane/GraphInfo"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 37.0
-margin_right = -5.0
-margin_bottom = -5.0
-custom_constants/separation = 7
+offset_left = 5.0
+offset_top = 37.0
+offset_right = -5.0
+offset_bottom = -5.0
 
 [node name="Name" type="Label" parent="UI/InfoPlane/GraphInfo/Contents"]
-margin_right = 336.0
-margin_bottom = 14.0
+layout_mode = 2
 text = "Name"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Type" type="Label" parent="UI/InfoPlane/GraphInfo/Contents"]
-margin_top = 21.0
-margin_right = 336.0
-margin_bottom = 35.0
-custom_colors/font_color = Color( 0.988235, 0.372549, 0.403922, 1 )
+layout_mode = 2
+theme_override_colors/font_color = Color(0.956863, 0.721569, 0.376471, 1)
 text = "Type"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TabContainer" type="TabContainer" parent="UI/InfoPlane/GraphInfo/Contents"]
-margin_top = 42.0
-margin_right = 336.0
-margin_bottom = 498.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Nodes" type="Panel" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+layout_mode = 2
 
-[node name="NodeWindow" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes" instance=ExtResource( 7 )]
-margin_right = 0.0
-margin_bottom = -40.0
+[node name="NodeWindow" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes" instance=ExtResource("7")]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 0.0
+offset_bottom = -40.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes"]
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = -35.0
-margin_right = -5.0
-margin_bottom = -5.0
+offset_left = 5.0
+offset_top = -35.0
+offset_right = -5.0
+offset_bottom = -5.0
 alignment = 1
 
 [node name="AddButton" type="Button" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/HBoxContainer"]
-margin_right = 100.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Add Node"
 
 [node name="RemoveButton" type="Button" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/HBoxContainer"]
-margin_left = 104.0
-margin_right = 206.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Remove Node"
 
 [node name="Button" type="OptionButton" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/HBoxContainer"]
-margin_left = 210.0
-margin_right = 318.0
-margin_bottom = 30.0
+layout_mode = 2
 size_flags_horizontal = 3
-text = "Connectivity"
-items = [ "Connectivity", null, false, 0, null, "Distance", null, false, 1, null ]
-selected = 0
 
 [node name="SelectionInfo" type="Panel" parent="UI/InfoPlane"]
+layout_mode = 0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_rotation = 0.0261821
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="HeaderPanel" type="Panel" parent="UI/InfoPlane/SelectionInfo"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 0
 anchor_right = 1.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
+offset_bottom = 30.0
 
 [node name="ColorRect" type="ColorRect" parent="UI/InfoPlane/SelectionInfo/HeaderPanel"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0.494118, 0.654902, 1 )
+color = Color(0, 0.494118, 0.654902, 1)
 
 [node name="HeaderLabel" type="Label" parent="UI/InfoPlane/SelectionInfo/HeaderPanel"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Node Information"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Contents" type="VBoxContainer" parent="UI/InfoPlane/SelectionInfo"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 37.0
-margin_right = -5.0
-margin_bottom = -5.0
-custom_constants/separation = 7
+offset_left = 5.0
+offset_top = 37.0
+offset_right = -5.0
+offset_bottom = -5.0
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents"]
-margin_right = 336.0
-margin_bottom = 32.0
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer"]
-margin_right = 336.0
-margin_bottom = 32.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Name" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/VBoxContainer"]
-margin_right = 336.0
-margin_bottom = 14.0
+layout_mode = 2
 text = "Name"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Type" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/VBoxContainer"]
-margin_top = 18.0
-margin_right = 336.0
-margin_bottom = 32.0
-custom_colors/font_color = Color( 0.172549, 0.647059, 0.552941, 1 )
+layout_mode = 2
+theme_override_colors/font_color = Color(0.956863, 0.721569, 0.376471, 1)
 text = "Type"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TabContainer" type="TabContainer" parent="UI/InfoPlane/SelectionInfo/Contents"]
-margin_top = 39.0
-margin_right = 336.0
-margin_bottom = 498.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Connections" type="Panel" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-script = ExtResource( 4 )
+layout_mode = 2
+script = ExtResource("4")
 
-[node name="NodeWindow" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections" instance=ExtResource( 7 )]
-margin_right = 0.0
-margin_bottom = -40.0
+[node name="NodeWindow" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections" instance=ExtResource("7")]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 0.0
+offset_bottom = -40.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections"]
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = -35.0
-margin_right = -5.0
-margin_bottom = -5.0
+offset_left = 5.0
+offset_top = -35.0
+offset_right = -5.0
+offset_bottom = -5.0
 
 [node name="AddButton" type="Button" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/HBoxContainer"]
-margin_right = 157.0
-margin_bottom = 30.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Add Connection"
 
 [node name="RemoveButton" type="Button" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/HBoxContainer"]
-margin_left = 161.0
-margin_right = 318.0
-margin_bottom = 30.0
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Remove Connection"
 
 [node name="Notes" type="TextEdit" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-script = ExtResource( 2 )
+layout_mode = 2
+script = ExtResource("2")
 
 [node name="PopupWindows" type="Control" parent="UI"]
 visible = false
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
-[node name="NewNode" type="WindowDialog" parent="UI/PopupWindows"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -125.0
-margin_top = -56.0
-margin_right = 125.0
-margin_bottom = 148.0
-popup_exclusive = true
-window_title = "New Node"
-script = ExtResource( 15 )
+[node name="NewNode" type="Window" parent="UI/PopupWindows"]
+title = "New Node"
+position = Vector2i(744, 336)
+size = Vector2i(300, 200)
+visible = false
+exclusive = true
+script = ExtResource("15")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/PopupWindows/NewNode"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -56.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -56.0
 
 [node name="NameLabel" type="Label" parent="UI/PopupWindows/NewNode/VBoxContainer"]
-margin_right = 230.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Name:"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="NameLineEdit" type="LineEdit" parent="UI/PopupWindows/NewNode/VBoxContainer"]
-margin_top = 24.0
-margin_right = 230.0
-margin_bottom = 48.0
-align = 1
-script = ExtResource( 14 )
+layout_mode = 2
+script = ExtResource("14")
 
 [node name="TypeLabel" type="Label" parent="UI/PopupWindows/NewNode/VBoxContainer"]
-margin_top = 52.0
-margin_right = 230.0
-margin_bottom = 72.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Type:"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TypeButton" type="Button" parent="UI/PopupWindows/NewNode/VBoxContainer"]
-margin_top = 76.0
-margin_right = 230.0
-margin_bottom = 101.0
-rect_min_size = Vector2( 0, 25 )
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
 text = "/Base"
 
 [node name="PlaceButton" type="Button" parent="UI/PopupWindows/NewNode"]
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -50.0
-margin_top = -40.0
-margin_right = 50.0
-margin_bottom = -10.0
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+offset_bottom = -10.0
 text = "Place"
 
-[node name="NodeTypes" type="WindowDialog" parent="UI/PopupWindows"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -151.5
-margin_top = -168.5
-margin_right = 151.5
-margin_bottom = 168.5
-popup_exclusive = true
-window_title = "Node Types"
-script = ExtResource( 16 )
+[node name="NodeTypes" type="Window" parent="UI/PopupWindows"]
+title = "Node Types"
+position = Vector2i(606, 340)
+size = Vector2i(300, 300)
+visible = false
+exclusive = true
+script = ExtResource("16")
 
 [node name="Tree" type="Tree" parent="UI/PopupWindows/NodeTypes"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -50.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -50.0
 
 [node name="Button" type="Button" parent="UI/PopupWindows/NodeTypes"]
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -45.5
-margin_top = -40.0
-margin_right = 45.5
-margin_bottom = -10.0
+offset_left = -45.5
+offset_top = -40.0
+offset_right = 45.5
+offset_bottom = -10.0
 text = "Select"
 
-[node name="DeleteNode" type="WindowDialog" parent="UI/PopupWindows"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -163.5
-margin_top = -45.0
-margin_right = 163.5
-margin_bottom = 45.0
-script = ExtResource( 17 )
+[node name="DeleteNode" type="Window" parent="UI/PopupWindows"]
+title = "Delete Node"
+position = Vector2i(725, 398)
+size = Vector2i(400, 100)
+visible = false
+script = ExtResource("17")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/PopupWindows/DeleteNode"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 5.0
-margin_right = -10.0
-margin_bottom = -5.0
-custom_constants/separation = 10
+offset_left = 10.0
+offset_top = 5.0
+offset_right = -10.0
+offset_bottom = -5.0
 alignment = 1
 
 [node name="Label" type="Label" parent="UI/PopupWindows/DeleteNode/VBoxContainer"]
-margin_top = 13.0
-margin_right = 307.0
-margin_bottom = 27.0
+layout_mode = 2
 text = "Are you sure you want to delete this node?"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/PopupWindows/DeleteNode/VBoxContainer"]
-margin_top = 37.0
-margin_right = 307.0
-margin_bottom = 67.0
+layout_mode = 2
 alignment = 1
 
 [node name="ConfirmButton" type="Button" parent="UI/PopupWindows/DeleteNode/VBoxContainer/HBoxContainer"]
-margin_left = 93.0
-margin_right = 155.0
-margin_bottom = 30.0
+layout_mode = 2
 text = "Confirm"
 
 [node name="CancelButton" type="Button" parent="UI/PopupWindows/DeleteNode/VBoxContainer/HBoxContainer"]
-margin_left = 159.0
-margin_right = 213.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 0, 30 )
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
 text = "Cancel"
 
 [node name="SaveProject" type="FileDialog" parent="UI/PopupWindows"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -292.5
-margin_top = -187.5
-margin_right = 292.5
-margin_bottom = 187.5
-rect_pivot_offset = Vector2( -417.5, -88.5 )
-popup_exclusive = true
-dialog_hide_on_ok = true
+title = "Save Project"
+position = Vector2i(537, 268)
+size = Vector2i(600, 600)
+ok_button_text = "Save"
 access = 1
-script = ExtResource( 18 )
+script = ExtResource("18")
 
 [node name="LoadProject" type="FileDialog" parent="UI/PopupWindows"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -292.5
-margin_top = -187.5
-margin_right = 292.5
-margin_bottom = 187.5
-rect_pivot_offset = Vector2( -417.5, -88.5 )
-popup_exclusive = true
-window_title = "Open a Directory"
-dialog_hide_on_ok = true
+title = "Open a Directory"
+position = Vector2i(535, 252)
+size = Vector2i(600, 600)
 mode = 2
+ok_button_text = "Select Current Folder"
+dialog_hide_on_ok = true
+file_mode = 2
 access = 1
-script = ExtResource( 19 )
+script = ExtResource("19")
 
-[node name="NewGraph" type="WindowDialog" parent="UI/PopupWindows"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -125.0
-margin_top = -56.0
-margin_right = 125.0
-margin_bottom = 148.0
-popup_exclusive = true
-window_title = "New Graph"
-script = ExtResource( 8 )
+[node name="NewGraph" type="Window" parent="UI/PopupWindows"]
+title = "New Graph"
+position = Vector2i(601, 382)
+size = Vector2i(400, 200)
+visible = false
+exclusive = true
+script = ExtResource("8")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/PopupWindows/NewGraph"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -56.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -56.0
 
 [node name="NameLabel" type="Label" parent="UI/PopupWindows/NewGraph/VBoxContainer"]
-margin_right = 230.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Name:"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="NameLineEdit" type="LineEdit" parent="UI/PopupWindows/NewGraph/VBoxContainer"]
-margin_top = 24.0
-margin_right = 230.0
-margin_bottom = 48.0
-align = 1
-script = ExtResource( 14 )
+layout_mode = 2
+script = ExtResource("14")
 
 [node name="TypeLabel" type="Label" parent="UI/PopupWindows/NewGraph/VBoxContainer"]
-margin_top = 52.0
-margin_right = 230.0
-margin_bottom = 72.0
-rect_min_size = Vector2( 0, 20 )
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Type:"
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TypeButton" type="Button" parent="UI/PopupWindows/NewGraph/VBoxContainer"]
-margin_top = 76.0
-margin_right = 230.0
-margin_bottom = 101.0
-rect_min_size = Vector2( 0, 25 )
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
 text = "/Base"
 
 [node name="PlaceButton" type="Button" parent="UI/PopupWindows/NewGraph"]
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -50.0
-margin_top = -40.0
-margin_right = 50.0
-margin_bottom = -10.0
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 50.0
+offset_bottom = -10.0
 text = "Place"
 
-[node name="GraphTypes" type="WindowDialog" parent="UI/PopupWindows"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -151.5
-margin_top = -168.5
-margin_right = 151.5
-margin_bottom = 168.5
-popup_exclusive = true
-window_title = "Graph Types"
-script = ExtResource( 9 )
+[node name="GraphTypes" type="Window" parent="UI/PopupWindows"]
+title = "Graph Types"
+position = Vector2i(636, 315)
+size = Vector2i(400, 300)
+visible = false
+exclusive = true
+script = ExtResource("9")
 
 [node name="Tree" type="Tree" parent="UI/PopupWindows/GraphTypes"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -50.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -50.0
 
 [node name="Button" type="Button" parent="UI/PopupWindows/GraphTypes"]
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -45.5
-margin_top = -40.0
-margin_right = 45.5
-margin_bottom = -10.0
+offset_left = -45.5
+offset_top = -40.0
+offset_right = 45.5
+offset_bottom = -10.0
 text = "Select"
 
 [connection signal="pressed" from="UI/Toolbar/SelectButton" to="UI/Toolbar" method="_on_SelectButton_pressed"]
@@ -598,25 +522,32 @@ text = "Select"
 [connection signal="focus_exited" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" method="_on_Notes_focus_exited"]
 [connection signal="mouse_entered" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" method="_on_Notes_mouse_entered"]
 [connection signal="mouse_exited" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" method="_on_Notes_mouse_exited"]
-[connection signal="about_to_show" from="UI/PopupWindows/NewNode" to="UI/PopupWindows/NewNode" method="_on_NewNode_about_to_show"]
+[connection signal="about_to_popup" from="UI/PopupWindows/NewNode" to="UI/PopupWindows/NewNode" method="_on_NewNode_about_to_show"]
+[connection signal="close_requested" from="UI/PopupWindows/NewNode" to="UI/PopupWindows/NewNode" method="_on_close_requested"]
 [connection signal="focus_entered" from="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_focus_entered"]
 [connection signal="focus_exited" from="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_focus_exited"]
 [connection signal="mouse_entered" from="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_mouse_entered"]
 [connection signal="mouse_exited" from="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_mouse_exited"]
 [connection signal="pressed" from="UI/PopupWindows/NewNode/VBoxContainer/TypeButton" to="UI/PopupWindows/NewNode" method="_on_TypeButton_pressed"]
 [connection signal="pressed" from="UI/PopupWindows/NewNode/PlaceButton" to="UI/PopupWindows/NewNode" method="_on_PlaceButton_pressed"]
-[connection signal="about_to_show" from="UI/PopupWindows/NodeTypes" to="UI/PopupWindows/NodeTypes" method="_on_NodeTypes_about_to_show"]
+[connection signal="about_to_popup" from="UI/PopupWindows/NodeTypes" to="UI/PopupWindows/NodeTypes" method="_on_NodeTypes_about_to_show"]
+[connection signal="close_requested" from="UI/PopupWindows/NodeTypes" to="UI/PopupWindows/NodeTypes" method="_on_close_requested"]
 [connection signal="pressed" from="UI/PopupWindows/NodeTypes/Button" to="UI/PopupWindows/NodeTypes" method="_on_Button_pressed"]
+[connection signal="close_requested" from="UI/PopupWindows/DeleteNode" to="UI/PopupWindows/DeleteNode" method="_on_close_requested"]
 [connection signal="pressed" from="UI/PopupWindows/DeleteNode/VBoxContainer/HBoxContainer/ConfirmButton" to="UI/PopupWindows/DeleteNode" method="_on_ConfirmButton_pressed"]
 [connection signal="pressed" from="UI/PopupWindows/DeleteNode/VBoxContainer/HBoxContainer/CancelButton" to="UI/PopupWindows/DeleteNode" method="_on_CancelButton_pressed"]
+[connection signal="close_requested" from="UI/PopupWindows/SaveProject" to="UI/PopupWindows/SaveProject" method="_on_close_requested"]
 [connection signal="file_selected" from="UI/PopupWindows/SaveProject" to="UI/PopupWindows/SaveProject" method="_on_SaveProject_file_selected"]
+[connection signal="close_requested" from="UI/PopupWindows/LoadProject" to="UI/PopupWindows/LoadProject" method="_on_close_requested"]
 [connection signal="dir_selected" from="UI/PopupWindows/LoadProject" to="UI/PopupWindows/LoadProject" method="_on_LoadProject_dir_selected"]
-[connection signal="about_to_show" from="UI/PopupWindows/NewGraph" to="UI/PopupWindows/NewGraph" method="_on_NewNode_about_to_show"]
+[connection signal="about_to_popup" from="UI/PopupWindows/NewGraph" to="UI/PopupWindows/NewGraph" method="_on_NewNode_about_to_show"]
+[connection signal="close_requested" from="UI/PopupWindows/NewGraph" to="UI/PopupWindows/NewGraph" method="_on_close_requested"]
 [connection signal="focus_entered" from="UI/PopupWindows/NewGraph/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewGraph/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_focus_entered"]
 [connection signal="focus_exited" from="UI/PopupWindows/NewGraph/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewGraph/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_focus_exited"]
 [connection signal="mouse_entered" from="UI/PopupWindows/NewGraph/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewGraph/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_mouse_entered"]
 [connection signal="mouse_exited" from="UI/PopupWindows/NewGraph/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewGraph/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_mouse_exited"]
 [connection signal="pressed" from="UI/PopupWindows/NewGraph/VBoxContainer/TypeButton" to="UI/PopupWindows/NewGraph" method="_on_TypeButton_pressed"]
 [connection signal="pressed" from="UI/PopupWindows/NewGraph/PlaceButton" to="UI/PopupWindows/NewGraph" method="_on_PlaceButton_pressed"]
-[connection signal="about_to_show" from="UI/PopupWindows/GraphTypes" to="UI/PopupWindows/GraphTypes" method="_on_GraphTypes_about_to_show"]
+[connection signal="about_to_popup" from="UI/PopupWindows/GraphTypes" to="UI/PopupWindows/GraphTypes" method="_on_GraphTypes_about_to_show"]
+[connection signal="close_requested" from="UI/PopupWindows/GraphTypes" to="UI/PopupWindows/GraphTypes" method="_on_close_requested"]
 [connection signal="pressed" from="UI/PopupWindows/GraphTypes/Button" to="UI/PopupWindows/GraphTypes" method="_on_Button_pressed"]

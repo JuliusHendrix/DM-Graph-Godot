@@ -1,7 +1,7 @@
 extends Panel
 
-onready var popupWindows = get_parent().get_parent().get_node("PopupWindows")
-onready var toolbar = get_parent().get_parent().get_node("Toolbar")
+@onready var popupWindows = get_parent().get_parent().get_node("PopupWindows")
+@onready var toolbar = get_parent().get_parent().get_node("Toolbar")
 
 var node = null
 var graph = null
@@ -9,7 +9,7 @@ var selectedNode = null
 
 func _ready():
 	# forward save function
-	$Contents/TabContainer/Notes.saveNotesFunc = funcref(self, "save_notes")
+	$Contents/TabContainer/Notes.saveNotesFunc = save_notes
 
 func display_node_info(node, graph):
 	if node == null:
