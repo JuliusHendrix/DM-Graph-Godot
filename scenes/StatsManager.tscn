@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://d0sjoscp872ew"]
 
-[ext_resource path="res://src/StatsManager/StatsManager.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://src/StatsManager/StatsManager.gd" id="1"]
 
 [node name="StatsManager" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource( 1 )
+script = ExtResource("1")

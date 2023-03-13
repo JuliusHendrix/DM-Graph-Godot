@@ -5,16 +5,44 @@ signal node_selected(node)
 var entries : Array = []
 var selectedEntry = null
 
-func show_nodes(nodes : Array):
-	clear_entries()
-	for node in nodes:
-		add_entry(node)
+var sortHighToLow = true
 
-func add_entry(node):
+func custom_comparison(arr1, arr2):
+	if sortHighToLow:
+		return arr1[1] > arr2[1]
+	else:
+		return arr1[1] < arr2[1]
+
+func order_nodes_by_value(nodes, values):
+	if nodes.size() != values.size():
+		print("order_nodes_by_value: nodes and values not of same length!")
+		return
+	
+	# create one array to sort
+	var combinedArray = []
+	for i in range(nodes.size()):
+		combinedArray.append([nodes[i], values[i]])
+	
+	# sort array
+	combinedArray.sort_custom(custom_comparison)
+	
+	return combinedArray
+
+func show_nodes(nodes : Array, values : Array):
+	clear_entries()
+	
+	# sort nodes
+	var orderedNodesValues = order_nodes_by_value(nodes, values)
+	
+	# show nodes
+	for nodeValue in orderedNodesValues:
+		add_entry(nodeValue[0], nodeValue[1])
+
+func add_entry(node, value):
 	var new_entry = $ScrollContainer/VBoxContainer/Entry.duplicate()
 	entries.append(new_entry)
 	$ScrollContainer/VBoxContainer.add_child(new_entry)
-	new_entry.setup(node)
+	new_entry.setup(node, value)
 	new_entry.visible = true
 
 func select_entry(entryToSelect):

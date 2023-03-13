@@ -2,6 +2,7 @@ extends Panel
 
 @onready var popupWindows = get_parent().get_parent().get_node("PopupWindows")
 @onready var toolbar = get_parent().get_parent().get_node("Toolbar")
+@onready var statsManager = get_node("/root/World/StatsManager")
 
 var node = null
 var graph = null
@@ -24,7 +25,14 @@ func display_node_info(node, graph):
 	$Contents/HBoxContainer/VBoxContainer/Type.text = Utils.type_array_to_string(node.properties.type)
 	
 	# display connections
-	$Contents/TabContainer/Connections/NodeWindow.show_nodes(graph.get_node_neighbours(node))
+	$Contents/TabContainer/Connections/NodeWindow.show_nodes(
+		graph.get_node_neighbours(node),
+		statsManager.get_nodes_weight(
+			graph.get_node_neighbours(node),
+			graph.selected_node,
+			graph
+		)
+	)
 	
 	# display notes
 	$Contents/TabContainer/Notes.text = node.properties.notes

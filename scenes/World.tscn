@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bgore3um6uw3h" path="res://scenes/Camera2D.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://dnqk07g2t636l" path="res://scenes/GraphManager.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://buq8u5sig3ukc" path="res://scenes/ToolManager.tscn" id="5"]
-[ext_resource type="PackedScene" path="res://scenes/StatsManager.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://d0sjoscp872ew" path="res://scenes/StatsManager.tscn" id="6"]
 
 [sub_resource type="Environment" id="1"]
 background_mode = 4
@@ -26,5 +26,3 @@ environment = SubResource("1")
 [node name="GraphManager" parent="." instance=ExtResource("4")]
 
 [node name="StatsManager" parent="." instance=ExtResource("6")]
-layout_mode = 3
-anchors_preset = 0

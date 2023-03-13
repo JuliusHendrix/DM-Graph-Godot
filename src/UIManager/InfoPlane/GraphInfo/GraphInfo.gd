@@ -2,6 +2,7 @@ extends Panel
 
 @onready var popupWindows = get_parent().get_parent().get_node("PopupWindows")
 @onready var selectionInfo = get_parent().get_node("SelectionInfo")
+@onready var statsManager = get_node("/root/World/StatsManager")
 
 var graph = null
 
@@ -15,7 +16,10 @@ func display_graph_info(graph):
 	$Contents/Type.text = Utils.type_array_to_string(graph.properties.type)
 	
 	# display nodes
-	$Contents/TabContainer/Nodes/NodeWindow.show_nodes(graph.nodes)
+	$Contents/TabContainer/Nodes/NodeWindow.show_nodes(
+		graph.nodes,
+		statsManager.get_nodes_connectivity(graph.nodes, graph)
+	)
 	
 	self.graph = graph
 

@@ -15,3 +15,8 @@ res://scenes/Camera2D.tscn
 res://scenes/ToolManager.tscn
 res://scenes/TemplateNode.tscn
 res://src/GraphManager/Types/Graphs/Graph.gd
+res://scenes/StatsManager.tscn
+res://src/StatsManager/StatsManager.gd
+res://src/NodeWindow/NodeWindow.gd
+res://src/NodeWindow/Entry.gd
+res://src/UIManager/InfoPlane/SelectionInfo/SelectionPanel.gd
