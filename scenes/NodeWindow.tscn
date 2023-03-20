@@ -36,7 +36,7 @@ vertical_alignment = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.4
-anchor_right = 0.8
+anchor_right = 0.7
 anchor_bottom = 1.0
 text = "Type"
 horizontal_alignment = 1
@@ -45,7 +45,7 @@ vertical_alignment = 1
 [node name="SortButton" type="Button" parent="Titles"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.8
+anchor_left = 0.9
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 5.0
@@ -55,6 +55,18 @@ offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "▼"
+
+[node name="OptionButton" type="OptionButton" parent="Titles"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_right = 0.9
+anchor_bottom = 1.0
+offset_top = 5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+clip_text = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
@@ -88,7 +100,7 @@ clip_text = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.4
-anchor_right = 0.8
+anchor_right = 0.7
 anchor_bottom = 1.0
 theme_override_colors/font_color = Color(0.027451, 0.745098, 0.721569, 1)
 text = "Node Type"
@@ -97,8 +109,9 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="Value" type="Label" parent="ScrollContainer/VBoxContainer/Entry"]
-layout_mode = 0
-anchor_left = 0.8
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme_override_colors/font_color = Color(0.898039, 0.643137, 0.796078, 1)
@@ -108,4 +121,5 @@ vertical_alignment = 1
 clip_text = true
 
 [connection signal="pressed" from="Titles/SortButton" to="." method="_on_sort_button_pressed"]
+[connection signal="item_selected" from="Titles/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/Entry" to="ScrollContainer/VBoxContainer/Entry" method="_on_Entry_pressed"]

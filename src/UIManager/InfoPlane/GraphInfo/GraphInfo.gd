@@ -15,11 +15,17 @@ func display_graph_info(graph):
 	# display type
 	$Contents/Type.text = Utils.type_array_to_string(graph.properties.type)
 	
+	# add sorting options
+	var labels = []
+	var functions = []
+	
+	labels.append("Connectivity")
+	functions.append(func(): return statsManager.get_nodes_connectivity(graph.nodes, graph))
+	
+	$Contents/TabContainer/Nodes/NodeWindow.add_option_items(labels, functions)
+	
 	# display nodes
-	$Contents/TabContainer/Nodes/NodeWindow.show_nodes(
-		graph.nodes,
-		statsManager.get_nodes_connectivity(graph.nodes, graph)
-	)
+	$Contents/TabContainer/Nodes/NodeWindow.show_nodes(graph.nodes)
 	
 	self.graph = graph
 

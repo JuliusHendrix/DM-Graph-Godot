@@ -25,14 +25,29 @@ func display_node_info(node, graph):
 	$Contents/HBoxContainer/VBoxContainer/Type.text = Utils.type_array_to_string(node.properties.type)
 	
 	# display connections
-	$Contents/TabContainer/Connections/NodeWindow.show_nodes(
-		graph.get_node_neighbours(node),
-		statsManager.get_nodes_weight(
-			graph.get_node_neighbours(node),
-			graph.selected_node,
-			graph
+	# add sorting options
+	var labels = []
+	var functions = []
+	
+	if graph.edgeType == ["Base", "Weighted"]:
+		labels.append("Weight")
+		functions.append(
+			func(): return statsManager.get_nodes_weight(
+				graph.get_node_neighbours(node),
+				node,
+				graph
+			)
 		)
+	
+	labels.append("Connectivity")
+	functions.append(
+		func(): return statsManager.get_nodes_connectivity(graph.get_node_neighbours(node), graph)
 	)
+	
+	$Contents/TabContainer/Connections/NodeWindow.add_option_items(labels, functions)
+	
+	# display nodes
+	$Contents/TabContainer/Connections/NodeWindow.show_nodes(graph.get_node_neighbours(node))
 	
 	# display notes
 	$Contents/TabContainer/Notes.text = node.properties.notes

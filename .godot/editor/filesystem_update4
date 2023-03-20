@@ -1,9 +1,11 @@
 res://default_env.tres
-res://scenes/World.tscn
-res://scenes/GraphManager.tscn
 res://scenes/UIManager.tscn
 res://scenes/NodeWindow.tscn
+res://scenes/World.tscn
+res://scenes/GraphManager.tscn
 res://scenes/ToolManager.tscn
 res://scenes/TemplateNode.tscn
 res://scenes/StatsManager.tscn
 res://src/NodeWindow/NodeWindow.gd
+res://src/UIManager/InfoPlane/SelectionInfo/SelectionPanel.gd
+res://src/UIManager/InfoPlane/GraphInfo/GraphInfo.gd
