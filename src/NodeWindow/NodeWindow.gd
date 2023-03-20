@@ -2,6 +2,9 @@ extends Panel
 
 signal node_selected(node)
 
+var nodes = []
+var values = []
+
 var entries : Array = []
 var selectedEntry = null
 
@@ -28,15 +31,23 @@ func order_nodes_by_value(nodes, values):
 	
 	return combinedArray
 
-func show_nodes(nodes : Array, values : Array):
+func show_ordered_nodes():
 	clear_entries()
 	
 	# sort nodes
-	var orderedNodesValues = order_nodes_by_value(nodes, values)
+	var orderedNodesValues = order_nodes_by_value(self.nodes, self.values)
 	
 	# show nodes
 	for nodeValue in orderedNodesValues:
 		add_entry(nodeValue[0], nodeValue[1])
+
+func show_nodes(nodes : Array, values : Array):	
+	self.nodes = nodes
+	self.values = values
+	
+	show_ordered_nodes()
+	
+	
 
 func add_entry(node, value):
 	var new_entry = $ScrollContainer/VBoxContainer/Entry.duplicate()
@@ -73,3 +84,13 @@ func clear_entries():
 		entry.queue_free()
 	entries = []
 
+
+func _on_sort_button_pressed():
+	if sortHighToLow:
+		$Titles/SortButton.text = "▲"
+		sortHighToLow = false
+		show_ordered_nodes()
+	else:
+		$Titles/SortButton.text = "▼"
+		sortHighToLow = true
+		show_ordered_nodes()
