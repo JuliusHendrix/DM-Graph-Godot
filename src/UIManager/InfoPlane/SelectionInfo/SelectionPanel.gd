@@ -3,14 +3,14 @@ extends Panel
 @onready var popupWindows = get_parent().get_parent().get_node("PopupWindows")
 @onready var toolbar = get_parent().get_parent().get_node("Toolbar")
 @onready var statsManager = get_node("/root/World/StatsManager")
+@onready var edgeInfo = get_parent().get_node("EdgeInfo")
 
 var node = null
 var graph = null
 var selectedNode = null
 
 func _ready():
-	# forward save function
-	$Contents/TabContainer/Notes.saveNotesFunc = save_notes
+	$Contents.visible = false
 
 func display_node_info(node, graph):
 	if node == null:
@@ -19,10 +19,10 @@ func display_node_info(node, graph):
 	$Contents.visible = true
 
 	# set name
-	$Contents/HBoxContainer/VBoxContainer/Name.text = node.properties.name
+	$Contents/Name.text = node.properties.name
 	
 	# display type
-	$Contents/HBoxContainer/VBoxContainer/Type.text = Utils.type_array_to_string(node.properties.type)
+	$Contents/Type.text = Utils.type_array_to_string(node.properties.type)
 	
 	# display connections
 	# add sorting options
@@ -57,6 +57,7 @@ func display_node_info(node, graph):
 
 func clear_display():
 	$Contents.visible = false
+	edgeInfo.visible = false
 	
 func save_notes(notes : String):
 	node.properties.notes = notes
@@ -69,3 +70,9 @@ func _on_AddButton_pressed():
 
 func _on_RemoveButton_pressed():
 	toolbar._on_DisconnectButton_pressed()
+
+func _on_node_window_node_selected(node):
+	edgeInfo.display_edge_info(self.node, node, self.graph)
+
+func _on_notes_focus_exited():
+	self.node.properties.notes = $Contents/TabContainer/Notes.text

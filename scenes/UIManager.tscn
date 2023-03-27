@@ -1,7 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://o2klsdbtjuxd"]
 
 [ext_resource type="Script" path="res://src/UIManager/UIManager.gd" id="1"]
-[ext_resource type="Script" path="res://src/UIManager/InfoPlane/SelectionInfo/Notes.gd" id="2"]
 [ext_resource type="Script" path="res://src/UIManager/InfoPlane/SelectionInfo/SelectionPanel.gd" id="3"]
 [ext_resource type="Script" path="res://src/UIManager/InfoPlane/SelectionInfo/Connections.gd" id="4"]
 [ext_resource type="Script" path="res://src/UIManager/InfoPlane/InfoPlane.gd" id="5"]
@@ -10,6 +9,7 @@
 [ext_resource type="Script" path="res://src/UIManager/PopupWindows/NewGraph/NewGraph.gd" id="8"]
 [ext_resource type="Script" path="res://src/UIManager/PopupWindows/NewGraph/GraphTypes.gd" id="9"]
 [ext_resource type="Script" path="res://src/UIManager/InfoPlane/Toolbar.gd" id="10"]
+[ext_resource type="Script" path="res://src/UIManager/InfoPlane/EdgeInfo/EdgeInfo.gd" id="10_kpebf"]
 [ext_resource type="Script" path="res://src/UIManager/MenuBar/MenuBar.gd" id="13"]
 [ext_resource type="Script" path="res://src/UIManager/PopupWindows/NewNode/NameLineEdit.gd" id="14"]
 [ext_resource type="Script" path="res://src/UIManager/PopupWindows/NewNode/NewNode.gd" id="15"]
@@ -82,20 +82,17 @@ text = "Disconnect"
 
 [node name="InfoPlane" type="Control" parent="UI"]
 layout_mode = 3
-anchor_left = 0.8
+anchor_left = 0.7
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 38.0
 mouse_filter = 1
 script = ExtResource("5")
 
-[node name="BackgroundPanel" type="Panel" parent="UI/InfoPlane"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-
 [node name="GraphInfo" type="Panel" parent="UI/InfoPlane"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35
 anchor_right = 1.0
 anchor_bottom = 0.5
 script = ExtResource("6")
@@ -145,6 +142,7 @@ vertical_alignment = 1
 [node name="TabContainer" type="TabContainer" parent="UI/InfoPlane/GraphInfo/Contents"]
 layout_mode = 2
 size_flags_vertical = 3
+tab_alignment = 1
 
 [node name="Nodes" type="Panel" parent="UI/InfoPlane/GraphInfo/Contents/TabContainer"]
 layout_mode = 2
@@ -179,7 +177,9 @@ size_flags_horizontal = 3
 text = "Remove Node"
 
 [node name="SelectionInfo" type="Panel" parent="UI/InfoPlane"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -215,20 +215,13 @@ offset_right = -5.0
 offset_bottom = -5.0
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Name" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/VBoxContainer"]
+[node name="Name" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents"]
 layout_mode = 2
 text = "Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Type" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/VBoxContainer"]
+[node name="Type" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.956863, 0.721569, 0.376471, 1)
 text = "Type"
@@ -238,6 +231,7 @@ vertical_alignment = 1
 [node name="TabContainer" type="TabContainer" parent="UI/InfoPlane/SelectionInfo/Contents"]
 layout_mode = 2
 size_flags_vertical = 3
+tab_alignment = 1
 
 [node name="Connections" type="Panel" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer"]
 layout_mode = 2
@@ -272,7 +266,111 @@ text = "Remove Connection"
 [node name="Notes" type="TextEdit" parent="UI/InfoPlane/SelectionInfo/Contents/TabContainer"]
 visible = false
 layout_mode = 2
-script = ExtResource("2")
+placeholder_text = "Node specific notes..."
+
+[node name="EdgeInfo" type="Panel" parent="UI/InfoPlane"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 0.35
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_kpebf")
+
+[node name="HeaderPanel" type="Panel" parent="UI/InfoPlane/EdgeInfo"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 30.0
+grow_horizontal = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/InfoPlane/EdgeInfo/HeaderPanel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0.494118, 0.654902, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/InfoPlane/EdgeInfo/HeaderPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 2.0
+offset_right = -5.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseButton" type="Button" parent="UI/InfoPlane/EdgeInfo/HeaderPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "►"
+flat = true
+
+[node name="HeaderLabel" type="Label" parent="UI/InfoPlane/EdgeInfo/HeaderPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Connection Info"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InfoPlane/EdgeInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 35.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SenderName" type="Label" parent="UI/InfoPlane/EdgeInfo/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.101961, 0.560784, 0.890196, 1)
+text = "Sender Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Connection" type="Label" parent="UI/InfoPlane/EdgeInfo/VBoxContainer"]
+layout_mode = 2
+text = "↕"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReceiverName" type="Label" parent="UI/InfoPlane/EdgeInfo/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.945098, 0.443137, 0.0196078, 1)
+text = "Receiver Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/InfoPlane/EdgeInfo/VBoxContainer"]
+layout_mode = 2
+
+[node name="WeightLabel" type="Label" parent="UI/InfoPlane/EdgeInfo/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Weight: "
+horizontal_alignment = 1
+
+[node name="WeightEdit" type="SpinBox" parent="UI/InfoPlane/EdgeInfo/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+min_value = -1.0
+max_value = 1.0
+step = 0.1
+alignment = 1
+
+[node name="Notes" type="TextEdit" parent="UI/InfoPlane/EdgeInfo/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Edge specific notes..."
+wrap_mode = 1
 
 [node name="PopupWindows" type="Control" parent="UI"]
 visible = false
@@ -512,12 +610,15 @@ text = "Select"
 [connection signal="node_selected" from="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/NodeWindow" to="UI/InfoPlane/GraphInfo" method="_on_NodeWindow_node_selected"]
 [connection signal="pressed" from="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/HBoxContainer/AddButton" to="UI/InfoPlane/GraphInfo" method="_on_AddButton_pressed"]
 [connection signal="pressed" from="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/HBoxContainer/RemoveButton" to="UI/InfoPlane/GraphInfo" method="_on_RemoveButton_pressed"]
+[connection signal="node_selected" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/NodeWindow" to="UI/InfoPlane/SelectionInfo" method="_on_node_window_node_selected"]
 [connection signal="pressed" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/HBoxContainer/AddButton" to="UI/InfoPlane/SelectionInfo" method="_on_AddButton_pressed"]
 [connection signal="pressed" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/HBoxContainer/RemoveButton" to="UI/InfoPlane/SelectionInfo" method="_on_RemoveButton_pressed"]
-[connection signal="focus_entered" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" method="_on_Notes_focus_entered"]
-[connection signal="focus_exited" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" method="_on_Notes_focus_exited"]
+[connection signal="focus_exited" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" to="UI/InfoPlane/SelectionInfo" method="_on_notes_focus_exited"]
 [connection signal="mouse_entered" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" method="_on_Notes_mouse_entered"]
 [connection signal="mouse_exited" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" to="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Notes" method="_on_Notes_mouse_exited"]
+[connection signal="pressed" from="UI/InfoPlane/EdgeInfo/HeaderPanel/HBoxContainer/CloseButton" to="UI/InfoPlane/EdgeInfo" method="_on_close_button_pressed"]
+[connection signal="value_changed" from="UI/InfoPlane/EdgeInfo/VBoxContainer/HBoxContainer/WeightEdit" to="UI/InfoPlane/EdgeInfo" method="_on_weight_edit_value_changed"]
+[connection signal="focus_exited" from="UI/InfoPlane/EdgeInfo/VBoxContainer/Notes" to="UI/InfoPlane/EdgeInfo" method="_on_notes_focus_exited"]
 [connection signal="about_to_popup" from="UI/PopupWindows/NewNode" to="UI/PopupWindows/NewNode" method="_on_NewNode_about_to_show"]
 [connection signal="close_requested" from="UI/PopupWindows/NewNode" to="UI/PopupWindows/NewNode" method="_on_close_requested"]
 [connection signal="focus_entered" from="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" to="UI/PopupWindows/NewNode/VBoxContainer/NameLineEdit" method="_on_NameLineEdit_focus_entered"]

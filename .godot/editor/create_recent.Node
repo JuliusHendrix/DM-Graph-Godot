@@ -1,5 +1,12 @@
-OptionButton
 Button
+HBoxContainer
+SpinBox
 Label
+LineEdit
+VBoxContainer
+TextEdit
+TabContainer
+Panel
+OptionButton
 Window
 Popup

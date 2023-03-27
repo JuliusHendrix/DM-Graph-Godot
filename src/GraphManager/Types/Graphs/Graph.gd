@@ -92,10 +92,10 @@ func get_edges_to_node(node):
 func get_edge_between_nodes(sender, receiver):
 	# check both ways!
 	if not sender in nodes:
-		print("Node not in nodes: ", sender)
+		print("Sender not in nodes: ", sender)
 	
 	if not receiver in nodes:
-		print("Node not in nodes: ", receiver)
+		print("Receiver not in nodes: ", receiver)
 	
 	var senderIdx = nodes.find(sender)
 	var receiverIdx = nodes.find(receiver)
