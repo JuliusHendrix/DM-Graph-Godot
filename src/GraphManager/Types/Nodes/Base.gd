@@ -27,3 +27,15 @@ func display():
 func dim():
 	$Sprite2D.modulate.a = settings.dimmedAlpha
 	$TemplateNode.light_off()
+
+func set_size(size : String):
+	if size not in self.properties.nodeSizes:
+		print("Node size " + size + " not known")
+		return
+	
+	self.properties.size = size
+	self.scale = Vector2(
+		self.properties.nodeSizes[size],
+		self.properties.nodeSizes[size]
+	)
+

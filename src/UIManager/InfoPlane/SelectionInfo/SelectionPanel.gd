@@ -18,11 +18,16 @@ func display_node_info(node, graph):
 	
 	$Contents.visible = true
 
-	# set name
-	$Contents/Name.text = node.properties.name
+	# display info
+	$Contents/HBoxContainer/VBoxContainerNameType/Name.text = node.properties.name
+	$Contents/HBoxContainer/VBoxContainerNameType/Type.text = Utils.type_array_to_string(node.properties.type)
 	
-	# display type
-	$Contents/Type.text = Utils.type_array_to_string(node.properties.type)
+	$Contents/HBoxContainer/VBoxContainerSize/OptionButton.clear()
+	var sizes = node.properties.nodeSizes.keys()
+	for i in range(sizes.size()):
+		$Contents/HBoxContainer/VBoxContainerSize/OptionButton.add_item(sizes[i], i)
+		if sizes[i] == node.properties.size:
+			$Contents/HBoxContainer/VBoxContainerSize/OptionButton.select(i)
 	
 	# display connections
 	# add sorting options
@@ -76,3 +81,8 @@ func _on_node_window_node_selected(node):
 
 func _on_notes_focus_exited():
 	self.node.properties.notes = $Contents/TabContainer/Notes.text
+
+func _on_option_button_item_selected(index):
+	self.node.set_size(
+		$Contents/HBoxContainer/VBoxContainerSize/OptionButton.get_item_text(index)
+	)

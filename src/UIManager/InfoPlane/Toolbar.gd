@@ -5,7 +5,8 @@ extends HBoxContainer
 func depress_all_buttons():
 	for button in self.get_children():
 		button.button_pressed = false
-	
+
+# TODO: should really make a select_tool() function...
 func _on_SelectButton_pressed():
 	# set selected tool
 	toolmanager.set_tool("Select")
@@ -31,3 +32,4 @@ func _on_DisconnectButton_pressed():
 		$DisconnectButton.button_pressed = true
 	else:
 		$DisconnectButton.button_pressed = false
+

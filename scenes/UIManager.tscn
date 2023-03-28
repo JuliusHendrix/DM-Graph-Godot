@@ -215,18 +215,41 @@ offset_right = -5.0
 offset_bottom = -5.0
 alignment = 1
 
-[node name="Name" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents"]
+layout_mode = 2
+
+[node name="VBoxContainerNameType" type="VBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/VBoxContainerNameType"]
 layout_mode = 2
 text = "Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Type" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents"]
+[node name="Type" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/VBoxContainerNameType"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.956863, 0.721569, 0.376471, 1)
 text = "Type"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="VBoxContainerSize" type="VBoxContainer" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/VBoxContainerSize"]
+custom_minimum_size = Vector2(60, 20)
+layout_mode = 2
+text = "Size:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/VBoxContainerSize"]
+custom_minimum_size = Vector2(60, 20)
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
 
 [node name="TabContainer" type="TabContainer" parent="UI/InfoPlane/SelectionInfo/Contents"]
 layout_mode = 2
@@ -610,6 +633,7 @@ text = "Select"
 [connection signal="node_selected" from="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/NodeWindow" to="UI/InfoPlane/GraphInfo" method="_on_NodeWindow_node_selected"]
 [connection signal="pressed" from="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/HBoxContainer/AddButton" to="UI/InfoPlane/GraphInfo" method="_on_AddButton_pressed"]
 [connection signal="pressed" from="UI/InfoPlane/GraphInfo/Contents/TabContainer/Nodes/HBoxContainer/RemoveButton" to="UI/InfoPlane/GraphInfo" method="_on_RemoveButton_pressed"]
+[connection signal="item_selected" from="UI/InfoPlane/SelectionInfo/Contents/HBoxContainer/VBoxContainerSize/OptionButton" to="UI/InfoPlane/SelectionInfo" method="_on_option_button_item_selected"]
 [connection signal="node_selected" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/NodeWindow" to="UI/InfoPlane/SelectionInfo" method="_on_node_window_node_selected"]
 [connection signal="pressed" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/HBoxContainer/AddButton" to="UI/InfoPlane/SelectionInfo" method="_on_AddButton_pressed"]
 [connection signal="pressed" from="UI/InfoPlane/SelectionInfo/Contents/TabContainer/Connections/HBoxContainer/RemoveButton" to="UI/InfoPlane/SelectionInfo" method="_on_RemoveButton_pressed"]
